@@ -1,0 +1,19 @@
+
+export("AddLakes", "AddRivers", "BfSStamp",  "CombinePolg", "CombineKant",
+       "CombinePolygons", "Neighbours", "PlotBezk","PlotCH","PlotGreg",
+       "PlotKant", "PlotBezk", "PlotMSRe","PlotMapDot","PlotPolg",
+       "SwissLocator", "RequireMap", "LoadMap", "tkart")
+
+
+importFrom("grDevices", "windows", "xy.coords")
+importFrom("graphics", "layout", "legend", "locator", "par", "plot", "text",
+           "title", "strheight", "strwidth")
+importFrom("utils", "packageVersion", "globalVariables","read.csv", "tail")
+importFrom("DescTools", "Coalesce", "BlankIfNA", "Recycle", "Mar", "Pal", "SetNames")
+importFrom("spdep", "nb2listw", "poly2nb")
+importFrom("maptools", "unionSpatialPolygons")
+importFrom("rlang", "env_poke")
+importFrom("rgdal","readOGR")
+importFrom("methods", "as", "slot")
+importFrom("utils", "View")
+importFrom("sp","SpatialPolygons","SpatialPoints","over", "proj4string", "proj4string<-", "plot")

@@ -1,0 +1,19 @@
+Package: bfsMaps
+Type: Package
+Title: Plot maps from Switzerland by Swiss Statistics BFS
+Version: 0.9.1
+Date: 2020-03-17
+Authors@R: c(
+  person("Andri", "Signorell", email = "andri@signorell.net", role = c("aut", "cre"))
+ )
+Description: Convenience functions for plotting Switzerland maps from Swiss Statistics BFS ThemaKart. Uses the library maptools to read and plot ESRI shape files from 'Cartographic bases for small-scale thematic mapping', obtainable at Swiss Statistics www.bfs.admin.ch.  
+Depends: base, stats, R (>= 3.6.0), sp, DescTools
+Imports: graphics, grDevices, spdep, maptools, rgdal, rlang, methods
+License: GPL (>= 2)
+LazyLoad: yes
+LazyData: yes
+URL:        https://github.com/AndriSignorell/bfsMaps/
+BugReports: https://github.com/AndriSignorell/bfsMaps/issues
+RoxygenNote: 6.1.1
+Encoding: latin1
+
