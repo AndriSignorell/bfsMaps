@@ -61,6 +61,21 @@ Andri Signorell <andri.signorell@helsana.ch>
 if(interactive()){
   PlotCH(col="lightgrey")
   AddLakes()
+
+  PlotCH(col="red")
+  sw <- 15000;
+  xc <- 2671975;
+  yc <- 1200600;
+
+  # overlay a cross
+  ccol <- rgb(1,1,1,0.85)
+  rect(xleft=xc-sw, ytop=yc-sw, xright=xc+sw, ybottom=yc+sw, col=ccol, border=NA)
+  rect(xleft=(xc-2*sw)-sw, ytop=yc-sw, xright=(xc-2*sw)+sw, ybottom=yc+sw, col=ccol, border=NA)
+  rect(xleft=(xc+2*sw)-sw, ytop=yc-sw, xright=(xc+2*sw)+sw, ybottom=yc+sw, col=ccol, border=NA)
+  rect(xleft=xc-sw, ytop=(yc-2*sw)-sw, xright=xc+sw, ybottom=(yc-2*sw)+sw, col=ccol, border=NA)
+  rect(xleft=xc-sw, ytop=(yc+2*sw)-sw, xright=xc+sw, ybottom=(yc+2*sw)+sw, col=ccol, border=NA)
+
+  title(main="Switzerland")
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
