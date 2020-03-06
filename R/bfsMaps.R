@@ -225,7 +225,11 @@ PlotMap <- function(map_x, id=NULL, col=NA, pbg="white", main="", vf=FALSE, bord
   acol[idx[!is.na(idx)]] <- col[!is.na(idx)]
   bcol[idx[!is.na(idx)]] <- border[!is.na(idx)]
 
-  Mar(bottom = 2.5, left = 1, top = 2, right = 1)
+  # set margin default only if it has not been changed by the user either
+  # by par(mar or as argument par=...)
+  if(all(InDots(..., arg = "mar", default = par("mar")) == .pardefault$mar ))
+    Mar(bottom = 2.5, left = 1, top = 2, right = 1)
+
   plot(map, col=acol, pbg=pbg, border=bcol, lwd=lwd, add=add, ... )
 
   # get the point map with the same name
@@ -269,7 +273,7 @@ PlotCH <- function(col="grey90", pbg="white", main="", col.vf=NA, waters=TRUE,
 
   if(waters) {
     AddRivers(col="grey75", categ=1:3)
-    AddLakes(col="grey98", border="grey70", categ=1)
+    AddLakes(col="grey95", border="grey70", categ=1)
   }
 
   if(tmtxt & !add)  BfSStamp()

@@ -13,6 +13,10 @@
 
 }
 
+# perpare map cache environment
 tkart <- new.env()
+
+# store default values
+.pardefault <- par(no.readonly=TRUE)
 
 
