@@ -29,7 +29,7 @@ AddRivers(categ = 1:5, col = "lightskyblue3", ...)
 \item 00_TOPO/K4_flusyyyymmdd/c_shp/k4flusyyyymmdd55_ch2007.shp
 }}
 
-\author{ Andri Signorell <andri.signorell@helsana.ch>
+\author{ Andri Signorell <andri@signorell.net>
 }
 
 \seealso{

@@ -5,7 +5,7 @@ export("AddLakes", "AddRivers", "BfSStamp",  "CombinePolg", "CombineKant",
        "SwissLocator", "RequireMap", "LoadMap", "tkart")
 
 
-importFrom("grDevices", "windows", "xy.coords")
+importFrom("grDevices", "xy.coords")
 importFrom("graphics", "layout", "legend", "locator", "par", "plot", "text",
            "title", "strheight", "strwidth")
 importFrom("utils", "packageVersion", "globalVariables","read.csv", "tail")

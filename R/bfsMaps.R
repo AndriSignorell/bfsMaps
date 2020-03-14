@@ -165,7 +165,7 @@ LoadMap <- function(name_x,
   opt <- options(stringsAsFactors = FALSE)
   on.exit(options(opt))
 
-  map <- readOGR(fn, verbose = FALSE)
+  map <- rgdal::readOGR(fn, verbose = FALSE)
 
   # unclear if still needed:
       # Encoding(levels(map[[i]]@data[, 1])) <- "latin1"
@@ -255,8 +255,8 @@ PlotMap <- function(map_x, id=NULL, col=NA, pbg="white", main="", vf=FALSE, bord
 
 
 
-PlotCH <- function(col="grey90", pbg="white", main="", col.vf=NA, waters=TRUE,
-                   border="grey70",
+PlotCH <- function(col="grey90", pbg="white", main="", col.vf=NA,
+                   border="grey", border.vf="grey",
                    lwd=1, tmtxt=TRUE, add=FALSE, ...) {
 
   # plot CH-border
@@ -265,15 +265,10 @@ PlotCH <- function(col="grey90", pbg="white", main="", col.vf=NA, waters=TRUE,
   h <- sapply(ch@polygons[[1]]@Polygons, slot, "hole")
   ch@polygons[[1]]@Polygons[h] <- NULL
 
-  plot(ch, col=col, pbg=pbg, lwd=lwd, border=border, add=add)
+  plot(ch, col=col, pbg=pbg, lwd=lwd, border=border, add=add, ...)
 
   if(!is.na(col.vf)){
-    plot(RequireMap("kantvf.map"), col=col.vf, border=border, add=TRUE)
-  }
-
-  if(waters) {
-    AddRivers(col="grey75", categ=1:3)
-    AddLakes(col="grey95", border="grey70", categ=1)
+    plot(RequireMap("kantvf.map"), col=col.vf, border=border.vf, add=TRUE, ...)
   }
 
   if(tmtxt & !add)  BfSStamp()
@@ -286,7 +281,7 @@ PlotCH <- function(col="grey90", pbg="white", main="", col.vf=NA, waters=TRUE,
 
 
 PlotBfsMap <- function(map_x, id=NULL, col="white", pbg="white", main="", border="grey", lwd=1,
-                     col.vf=NA,
+                     col.vf=NA, border.vf="grey",
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, ...) {
 
@@ -296,7 +291,7 @@ PlotBfsMap <- function(map_x, id=NULL, col="white", pbg="white", main="", border
                 lwd=lwd, tmtxt=tmtxt, add=add, labels=if(!vf) labels else NULL, ...)
 
   if(vf)
-    xy <- PlotMap(map_x=map_x, id = id, col = col.vf, pbg=pbg, main=main, vf=TRUE, border=border,
+    xy <- PlotMap(map_x=map_x, id = id, col = col.vf, pbg=pbg, main=main, vf=TRUE, border=border.vf,
             lwd=lwd, tmtxt=FALSE, add=TRUE, labels=labels, ...)
 
   invisible(xy)
@@ -306,47 +301,47 @@ PlotBfsMap <- function(map_x, id=NULL, col="white", pbg="white", main="", border
 
 
 PlotKant <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1,
-                       col.vf=NA,
+                       col.vf=NA, border.vf="grey",
                        labels=NULL,
                        tmtxt=TRUE, add=FALSE, map_x="kant.map", ...) {
 
   PlotBfsMap(map_x=map_x, id=id, col=col, pbg=pbg, main=main, border=border, lwd=lwd,
-                         col.vf=col.vf,
+                         col.vf=col.vf, border.vf=border.vf,
                          labels=labels,
                          tmtxt=tmtxt, add=add, ...)
 }
 
 
 PlotGreg <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1,
-                     col.vf=NA,
+                     col.vf=NA,  border.vf=border.vf,
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, map_x="greg.map", ...) {
 
   PlotBfsMap(map_x=map_x, id=id, col=col, pbg=pbg, main=main, border=border, lwd=lwd,
-             col.vf=col.vf,
+             col.vf=col.vf, border.vf=border.vf,
              labels=labels,
              tmtxt=tmtxt, add=add, ...)
 }
 
 
 PlotBezk <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1,
-                     col.vf=NA,
+                     col.vf=NA, border.vf="grey",
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, map_x="bezk.map", ...) {
 
   PlotBfsMap(map_x=map_x, id=id, col=col, pbg=pbg, main=main, border=border, lwd=lwd,
-             col.vf=col.vf,
+             col.vf=col.vf, border.vf=border.vf,
              labels=labels,
              tmtxt=tmtxt, add=add, ...)
 }
 
 PlotPolg <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1,
-                     col.vf=NA,
+                     col.vf=NA, border.vf="grey",
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, map_x="polg.map", ...) {
 
   PlotBfsMap(map_x=map_x, id=id, col=col, pbg=pbg, main=main, border=border, lwd=lwd,
-             col.vf=col.vf,
+             col.vf=col.vf, border.vf=border.vf,
              labels=labels,
              tmtxt=tmtxt, add=add, ...)
 }
@@ -354,25 +349,27 @@ PlotPolg <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1
 
 
 PlotMSRe <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1,
-                     col.vf=NA,
+                     col.vf=NA, border.vf="grey",
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, map_x="msre.map", ...) {
 
   PlotBfsMap(map_x=map_x, id=id, col=col, pbg=pbg, main=main, border=border, lwd=lwd,
-             col.vf=col.vf,
+             col.vf=col.vf, border.vf=border.vf,
              labels=labels,
              tmtxt=tmtxt, add=add, ...)
 }
 
 
 
-PlotMapDot <- function(mar=c(5.1,4.1,0,1), oma=c(0,0,5,0), layw=c(2,0.8), newwin = FALSE) {
+PlotMapDot <- function(mar=c(5.1,4.1,0,1), oma=c(0,0,5,0), widths = c(2, 0.8)) {
 
-  if (newwin)
-    windows(width = 10, height = 6)
+  # not needed anymore....
+  # if (newwin)
+  #   windows(width = 10, height = 6)
+
   usr <- par("usr")
   par(mar = mar, oma = oma)
-  layout(matrix(c(1, 2), nrow = 1, byrow = TRUE), widths=layw , TRUE)
+  layout(matrix(c(1, 2), nrow = 1, byrow = TRUE), widths=widths , TRUE)
 
 }
 

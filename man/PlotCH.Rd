@@ -9,7 +9,7 @@
 }
 \usage{
 PlotCH(col = "grey90", pbg = "white", main = "", col.vf = NA,
-       waters = TRUE, border = "grey70", lwd = 1,
+       border = "grey", border.vf = "grey", lwd = 1,
        tmtxt = TRUE, add = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -28,8 +28,10 @@ PlotCH(col = "grey90", pbg = "white", main = "", col.vf = NA,
     If \code{NA} only the total area is used.
 %%     ~~Describe \code{cols} here~~
 }
-\item{waters}{logical. Defining if lakes and rivers should be displayed (default is \code{TRUE}).}
-  \item{border}{color of map borders. Default is "grey70".
+  \item{border}{color of map borders. Default is \code{"grey"}.
+%%     ~~Describe \code{\dots} here~~
+}
+  \item{border.vf}{color of borders for the vegetational area. Default is \code{"grey"}.
 %%     ~~Describe \code{\dots} here~~
 }
   \item{lwd}{linewidth of cantons.
@@ -50,7 +52,7 @@ The list of all cantons and their ids is given by d.bfsrg:\cr
 
 }
 \author{
-Andri Signorell <andri.signorell@helsana.ch>
+Andri Signorell <andri@signorell.net>
 }
 
 
@@ -76,6 +78,11 @@ if(interactive()){
   rect(xleft=xc-sw, ytop=(yc+2*sw)-sw, xright=xc+sw, ybottom=(yc+2*sw)+sw, col=ccol, border=NA)
 
   title(main="Switzerland")
+
+
+  # add waters first
+  PlotCH(col=NA, lwd=2, panel.first=AddLakes())
+
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

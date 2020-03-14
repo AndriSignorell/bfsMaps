@@ -1,11 +1,12 @@
 \name{kt}
 \alias{kt}
-\encoding{latin1}
+\encoding{UTF-8}
+
 \docType{data}
-\title{Kantonsabkuerzungen
+\title{Abbreviations for Swiss Cantons
 %%   ~~ data name/kind ... ~~
 }
-\description{Vordefinierte Kantonsabkuerzungen in der Reihenfolge der BfS-ID.
+\description{Abbreviations for Swiss Cantons in the correct order of BfS-ID.
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
 }
 \usage{kt}

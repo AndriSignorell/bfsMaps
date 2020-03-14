@@ -30,7 +30,7 @@ Lakes are defined in the original files:
 \item 00_TOPO/K4_seenyyyymmdd/c_shp/k4seenyyyymmdd22_ch2007Poly.shp
 }
 }
-\author{Andri Signorell <andri.signorell@helsana.ch}
+\author{Andri Signorell <andri@signorell.net}
 
 \seealso{\code{\link{AddRivers}}
 }

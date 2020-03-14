@@ -26,7 +26,7 @@ Neighbours(map, id = NULL)
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-\author{Andri Signorell <andri.signorell@helsana.ch>
+\author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~
 }
 

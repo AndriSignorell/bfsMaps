@@ -26,7 +26,7 @@ CombinePolg(id, g, map = RequireMap("polg.map"))
 
 }
 \value{Returns an aggregated spatial polygons object named with the aggregated IDs values in their sorting order; see the ID values of the output object to view the order.}
-\author{Juerg Guggenbuehl <juerg.guggenbuehl@helsana.ch>, Andri Signorell <andri.signorell@helsana.ch>
+\author{Juerg Guggenbuehl, Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~
 }
 \seealso{\code{\link{unionSpatialPolygons}}

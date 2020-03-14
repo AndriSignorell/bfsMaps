@@ -20,7 +20,7 @@ BfSStamp(xy = NULL, year_n = 2020, txt = NULL, cex = 0.6, adj = c(1,0), ...)
 
 }
 
-\author{Andri Signorell <andri.signorell@helsana.ch>
+\author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~
 }
 \seealso{\code{\link[DescTools]{Stamp}()}

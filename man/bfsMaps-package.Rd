@@ -2,41 +2,32 @@
 \alias{bfsMaps-package}
 \alias{bfsMaps}
 \docType{package}
-\encoding{latin1}
+\encoding{UTF-8}
+
 \title{ Plotting Switzerland Maps from Swiss Statistics BFS
 }
 \description{
-Convenience functions for plotting Switzerland maps distributed by Swiss Statistics BFS ThemaKart.
-Uses the package \code{maptools} for reading and plotting ESRI shapefiles from 'Cartographic bases for small-scale thematic mapping', obtainable from Swiss Statistics www.bfs.admin.ch.
+This package contains convenience functions for plotting Switzerland maps distributed free of charge by the Federal Office of Statistics FOS (Switzerland). It uses the package \code{rgdal} for reading and plotting ESRI shapefiles.
 }
 \details{
-\tabular{ll}{
-Package: \tab bfsMaps\cr
-Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2020-03-09\cr
-License: \tab code GPL (>= 2), maps: (c) Federal Statistical Office, Neuchatel 2020\cr
-LazyLoad: \tab yes\cr
-}
-The package contains a number of functions for quickly displaying spatial distributions in CH maps. The idea of the functions is, to load the specific map, assign the desired color to the regions and display the results.
-The maps can be loaded and plotted independently of each other as single maps. There are also special functions for the most important spatial segmentations in Switzerland that accept a vector with the region ID and the corresponding color vector.
+The generation of spatial images with maps can require several steps, which makes the handling complex and confusing. Functions on a higher level of abstraction simplify the daily work. The purpose is to allow the user to get to the desired map as quickly and easily as possible.\cr
+The idea behind the functions is to load the specific map, assign the desired color to the regions and create the plot. The arguments are kept  straightforward, what is needed is a vector with the ids of the regions and an equally sized vector for the colors.
+The maps can be loaded and plotted independently of each other as single maps. \cr There are specific functions for the most important spatial segmentations in Switzerland.
 Cantons can be plotted with \code{\link{PlotKant}()}, political municipalities with  \code{\link{PlotPolg}()}, large regions with  \code{\link{PlotGreg}()} and districts with  \code{\link{PlotBezk}()}.
 Lakes and rivers in multiple categories can be added to existing images with  \code{\link{AddLakes}()} or  \code{\link{AddRivers}()}.
 
+The maps must be downloaded separately under the link BfS Base maps (below) and unzipped into a folder. The location must then be declared as \code{options(bfsMaps.base = "//path_to_my_maps/")}. The names of the maps and their shortnames are stored in a file named \code{maps.csv}, which can be stored either in the bfsMaps.base folder or alternatively in the packages installation folder.
+
 }
-\author{
-Andri Signorell <andri.signorell@helsana.ch>
-
-Maintainer: Andri Signorell <andri.signorell@helsana.ch>
-
+\author{Andri Signorell <andri@signorell.net>
 }
 \references{
 Further Information:\cr
 \itemize{
-BfS Kartengrundlagen: \url{https://www.bfs.admin.ch/bfs/de/home/statistiken/regionalstatistik/kartengrundlagen.html}\cr
-BfS Raumgliederungen: \url{https://www.bfs.admin.ch/bfs/de/home/grundlagen/raumgliederungen.assetdetail.2546562.html}\cr
-BfS PLZ <-> Gemeinde-Nr: \url{https://www.bfs.admin.ch/bfs/de/home/grundlagen/agvch/ortschaftenverzeichnis.assetdetail.275785.html}\cr
-BAG Praemienregionen: \url{https://www.priminfo.admin.ch/de/regionen}
+BfS Base maps: \url{https://www.bfs.admin.ch/bfs/de/home/statistiken/regionalstatistik/kartengrundlagen.html}\cr
+BfS Raumgliederungen: \url{https://www.agvchapp.bfs.admin.ch/de/typologies/query}\cr
+Official directory of towns and cities (PLZ): \url{https://www.cadastre.ch/de/services/service/registry/plz.html}\cr
+BAG Premium regions: \url{https://www.priminfo.admin.ch/de/regionen}
 }}
 
 \keyword{ package }
@@ -52,7 +43,7 @@ PlotKant(id="GR", col="orange", label=TRUE, add=TRUE)
 AddLakes()
 title("Switzerland with some cantons")
 # Mark the national border
-PlotCH(col=NA, add=TRUE, lwd=2, waters=FALSE)
+PlotCH(col=NA, add=TRUE, lwd=2)
 
 
 # The maps have all a general area and a vegetational area
@@ -103,7 +94,7 @@ text(x=xy, labels = tkart$msre.map$ID0, cex=0.6)
 
 
 # Display vegetational area
-PlotCH(col="wheat3", col.vf="wheat", border="wheat3", main="CH Vegetationsfläche")
+PlotCH(col="wheat3", col.vf="wheat", border="wheat3", main="CH Vegetation Area")
 AddRivers()
 AddLakes()
 PlotKant(col=NA, border="wheat4", add=TRUE, lwd=1)
@@ -112,7 +103,7 @@ PlotKant(col=NA, border="wheat4", add=TRUE, lwd=1)
 # Use Raumregions data
 cols <- c("peachpuff2","gainsboro","honeydew3","lightgoldenrodyellow")
 PlotPolg(d.bfsrg$gem_id, col=cols[d.bfsrg$sprgeb_c], border="grey70",
-         main="Sprachgebiete CH" )
+         main="Language CH" )
 PlotBezk(d.bfsrg$bezk_c, col=NA, border="grey40", add=TRUE)
 AddLakes(col="lightsteelblue1", border="lightskyblue" )
 legend(x="topleft", legend=levels(d.bfsrg$sprgeb_x), bg="white",
@@ -157,7 +148,7 @@ text(xy, labels=round(acant/1E6,1), cex=0.7)
 kant.gr <- slot(tkart$kant.map,"polygons")[[18]]@Polygons[[1]]@coords
 # prepare plot
 plot(kant.gr, asp=1, axes=FALSE, frame.plot=FALSE, xlab="", ylab="",
-     main="Beautiful Graubünden", type="n",
+     main="Beautiful Grisons", type="n",
      xlim=c(2671494, 2862205), ylim=c(1108314, 1219629))
 polygon(kant.gr, col="steelblue", lwd=2 )
 

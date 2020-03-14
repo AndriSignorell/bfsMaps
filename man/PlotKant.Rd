@@ -5,7 +5,8 @@
 \alias{PlotBezk}
 \alias{PlotMSRe}
 
-\encoding{latin1}
+% \encoding{latin1}
+\encoding{UTF-8}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Plot CH-Map with Cantons }
@@ -16,32 +17,32 @@ With \code{vf} set to \code{TRUE} the vegetational area will be plotted.
 }
 \usage{
 PlotKant(id = NULL, col = NA, pbg = "white", main = "",
-         border = "grey", lwd = 1, col.vf = NA, labels = NULL,
+         border = "grey", lwd = 1, col.vf = NA, border.vf = "grey", labels = NULL,
          tmtxt = TRUE, add = FALSE, map_x = "kant.map", ...)
 
 PlotMSRe(id = NULL, col = NA, pbg = "white", main = "",
-         border = "grey", lwd = 1, col.vf = NA, labels = NULL,
+         border = "grey", lwd = 1, col.vf = NA, border.vf = "grey", labels = NULL,
          tmtxt = TRUE, add = FALSE, map_x = "msre.map", ...)
 
 
 PlotBezk(id = NULL, col = NA, pbg = "white", main = "",
-         border = "grey", lwd = 1, col.vf = NA, labels = NULL,
+         border = "grey", lwd = 1, col.vf = NA, border.vf = "grey", labels = NULL,
          tmtxt = TRUE, add = FALSE, map_x = "bezk.map", ...)
 
 
 PlotPolg(id = NULL, col = NA, pbg = "white", main = "",
-         border = "grey", lwd = 1, col.vf = NA, labels = NULL,
+         border = "grey", lwd = 1, col.vf = NA, border.vf = "grey", labels = NULL,
          tmtxt = TRUE, add = FALSE, map_x = "polg.map", ...)
 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{id}{cantons to plot, can either be defined via a 2-character-abbreviation:\cr
+  \item{id}{vector of region ids to plot. Cantons can either be defined via a 2-character-abbreviation:\cr
     \kbd{"AG","AI","AR","BE","BL","BS","FR","GE","GL","GR","JU","LU","NE",}\cr
     \kbd{"NW","OW","SG","SH","SO","SZ","TG","TI","UR","VD","VS","ZG","ZH"}\cr
-  or as index from 1 .. \code{ZH} to 26 .. \code{JU}
+  or - like all other regions - as index from 1 .. \code{ZH} to 26 .. \code{JU}.
 }
-  \item{col}{vector of colors, defining the colors of the cantons.\cr
+  \item{col}{vector of colors, defining the colors of the region area.\cr
     Note: \code{NAs} are recoded as \code{"white"}.
 }
   \item{pbg}{color of the plot background.
@@ -50,15 +51,18 @@ PlotPolg(id = NULL, col = NA, pbg = "white", main = "",
   \item{main}{main title in the plot.
 %%     ~~Describe \code{main} here~~
 }
-  \item{border}{color of cantons borders. Default is \code{grey30}.
+  \item{border}{color of region borders. Default is \code{"grey30"}.
 %%     ~~Describe \code{\dots} here~~
 }
-  \item{lwd}{linewidth of cantons.
+  \item{lwd}{linewidth for region borders.
 %%     ~~Describe \code{\dots} here~~
 }
   \item{col.vf}{defines if only the vegetational area ("Vegetationsflaeche") is to be plotted. \cr
-    By default \code{vf} is FALSE and so will the total area be used.
+    By default \code{vf} is \code{FALSE} and so the total area will be used.
 %%     ~~Describe \code{cols} here~~
+}
+  \item{border.vf}{color of borders for the vegetational area. Default is \code{"grey"}.
+%%     ~~Describe \code{\dots} here~~
 }
   \item{labels}{optional labels to be placed in the map, by default the centroids of the map is used for that.}
 
@@ -131,7 +135,7 @@ The list of all districts is given by \code{d.bfsrg}: \cr
 
 
 \author{
-Andri Signorell <andri.signorell@helsana.ch>
+Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~
 }
 
@@ -230,8 +234,6 @@ PlotPolg(id=1:10,
 RequireMap("polg.map")
 PlotPolg(id=tkart$polg.map@data$ID0, col=rainbow(nrow(tkart$polg.map@data)),
          main="Political communities in CH")
-
-
 }
 }
 \keyword{ hplot }

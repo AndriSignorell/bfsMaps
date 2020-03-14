@@ -20,7 +20,7 @@ SwissLocator()
 }
 
 }
-\author{Andri Signorell <andri.signorell@helsana.ch>
+\author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~
 }
 \keyword{ iplot }
