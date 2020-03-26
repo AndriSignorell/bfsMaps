@@ -28,6 +28,7 @@ AddRivers(categ = 1:5, col = "lightskyblue3", ...)
 \item 00_TOPO/K4_flusyyyymmdd/c_shp/k4flusyyyymmdd44_ch2007.shp
 \item 00_TOPO/K4_flusyyyymmdd/c_shp/k4flusyyyymmdd55_ch2007.shp
 }}
+\value{None}
 
 \author{ Andri Signorell <andri@signorell.net>
 }
@@ -35,11 +36,10 @@ AddRivers(categ = 1:5, col = "lightskyblue3", ...)
 \seealso{
 \code{\link{AddLakes}}
 }
-\examples{
-if(interactive()){
-  PlotCH()
-  AddLakes(categ=1)      # adds the lakes of category 1 to the map
-  AddRivers(categ=1:2)   # adds the rivers of category 1 and 2 to the map
+\examples{\donttest{
+PlotCH()
+AddLakes(categ=1)      # adds the lakes of category 1 to the map
+AddRivers(categ=1:2)   # adds the rivers of category 1 and 2 to the map
 }}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

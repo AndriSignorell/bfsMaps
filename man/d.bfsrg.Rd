@@ -3,21 +3,21 @@
 \docType{data}
 \encoding{UTF-8}
 
-\title{ BfS Raumregionsdaten
+\title{Swiss Federal Statistical Office (SFSO) Spatial Divisions
 %%   ~~ data name/kind ... ~~
 }
-\description{Raumregionsdaten des BfS
+\description{The Swiss Federal Statistical Office (SFSO) produces, publishes and maintains various spatial divisions for Switzerland. A dataset for the year 2020 is part of the package.
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
 }
 \usage{data("d.bfsrg")}
 \format{
   A data frame with 2202 observations on the following 29 variables.
   \describe{
-    \item{\code{gem_id}}{a numeric vector}
-    \item{\code{gemeinde_x}}{a character vector}
+    \item{\code{gem_id}}{community id, a numeric vector}
+    \item{\code{gemeinde_x}}{community name, character vector}
 
-    \item{\code{kt_c}}{a numeric vector}
-    \item{\code{kt_x}}{a factor with levels \code{ZH} \code{BE} \code{LU} \code{UR} \code{SZ} \code{OW} \code{NW} \code{GL} \code{ZG} \code{FR} \code{SO} \code{BS} \code{BL} \code{SH} \code{AR} \code{AI} \code{SG} \code{GR} \code{AG} \code{TG} \code{TI} \code{VD} \code{VS} \code{NE} \code{GE} \code{JU}}
+    \item{\code{kt_c}}{canton id, numeric vector}
+    \item{\code{kt_x}}{canton abbreviation, a factor with levels \code{ZH} \code{BE} \code{LU} \code{UR} \code{SZ} \code{OW} \code{NW} \code{GL} \code{ZG} \code{FR} \code{SO} \code{BS} \code{BL} \code{SH} \code{AR} \code{AI} \code{SG} \code{GR} \code{AG} \code{TG} \code{TI} \code{VD} \code{VS} \code{NE} \code{GE} \code{JU}}
 
     \item{\code{kt_bez_x}}{a factor with levels \code{Zuerich} \code{Bern} \code{Luzern} \code{Uri} \code{Schwyz} \code{Obwalden} \code{Nidwalden} \code{Glarus} \code{Zug} \code{Fribourg} \code{Solothurn} \code{Basel-Stadt} \code{Basel-Landschaft} \code{Schaffhausen} \code{Appenzell Ausserrhoden} \code{Appenzell Innerrhoden} \code{St. Gallen} \code{Graubuenden} \code{Aargau} \code{Thurgau} \code{Ticino} \code{Vaud} \code{Wallis} \code{Neuchatel} \code{Geneve} \code{Jura}}
 
@@ -38,10 +38,10 @@
     \item{\code{stadtland_x}}{a factor with levels \code{stadt} \code{agglo} \code{land}}
 
    \item{\code{gem_typ9_c}}{a numeric vector}
-    \item{\code{gem_typ9_x}}{a factor with levels \code{Staedtische Gemeinde einer grossen Agglomeration} \code{Staedtische Gemeinde einer mittelgrossen Agglomeration} \code{Staedtische Gemeinde einer kleinen oder ausserhalb einer Agglomeration} \code{Periurbane Gemeinde hoher Dichte} \code{Periurbane Gemeinde mittlerer Dichte} \code{Periurbane Gemeinde geringer Dichte} \code{Laendliche Zentrumsgemeinde} \code{Laendliche zentral gelegene Gemeinde} \code{Laendliche periphere Gemeinde}}
+    \item{\code{gem_typ9_x}}{a factor with 9 levels}
 
     \item{\code{gem_typ25_c}}{a numeric vector}
-    \item{\code{gem_typ25_x}}{a factor with levels \code{Kernstadt einer grossen Agglomeration} \code{Staedtische Arbeitsplatzgemeinde einer grossen Agglomeration} \code{Staedtische Wohngemeinde einer grossen Agglomeration} \code{Kernstadt einer mittelgrossen Agglomeration} \code{Staedtische Arbeitsplatzgemeinde einer mittelgrossen Agglomeration} \code{Staedtische Wohngemeinde einer mittelgrossen Agglomeration} \code{Staedtische Tourismusgemeinde einer kleinen oder ausserhalb einer Agglomeration} \code{Staedtische Industriegemeinde einer kleinen oder ausserhalb einer Agglomeration} \code{Staedtische Dienstleistungsgemeinde einer kleinen oder ausserhalb einer Agglomeration} \code{Periurbane Industriegemeinde hoher Dichte} \code{Periurbane Dienstleistungsgemeinde hoher Dichte} \code{Periurbane Industriegemeinde mittlerer Dichte} \code{Periurbane Dienstleistungsgemeinde mittlerer Dichte} \code{Periurbane Agrargemeinde geringer Dichte} \code{Periurbane Industriegemeinde geringer Dichte} \code{Periurbane Dienstleistungsgemeinde geringer Dichte} \code{Tourismusgemeinde eines laendlichen Zentrums} \code{Industriegemeinde eines laendlichen Zentrums} \code{Dienstleistungsgemeinde eines laendlichen Zentrums} \code{Laendliche zentral gelegene Agrargemeinde} \code{Laendliche zentral gelegene Industriegemeinde} \code{Laendliche zentral gelegene Dienstleistungsgemeinde} \code{Laendliche periphere Tourismusgemeinde } \code{Laendliche periphere Agrargemeinde} \code{Laendliche periphere Mischgemeinde}}
+    \item{\code{gem_typ25_x}}{a factor with 25 levels, definig types of communities}
 
     \item{\code{degurba_c}}{a numeric vector}
     \item{\code{degurba_x}}{a factor with levels \code{dense} \code{intermediate} \code{thin}}
@@ -59,8 +59,8 @@
   }
 }
 \examples{
-# (kt <- unique(d.bfsrg[,c("kt_c","kt_x","kt_bez_x")][order(d.bfsrg$kt_c),]))
-# (bezk <- unique(d.bfsrg[,c("bezirk_c","bezirk_x","kt_x")][order(d.bfsrg$bezirk_c),]))
-# (msreg <- unique(d.bfsrg[,c("ms_reg_c","ms_reg_x","ms_typ_x")][order(d.bfsrg$ms_reg_c),]))
+head(kt <- unique(d.bfsrg[,c("kt_c","kt_x","kt_bez_x")][order(d.bfsrg$kt_c),]))
+head(bezk <- unique(d.bfsrg[,c("bezk_c","bezk_x","kt_x")][order(d.bfsrg$bezk_c),]))
+head(msreg <- unique(d.bfsrg[,c("msre_c","msre_x","msre_typ_x")][order(d.bfsrg$msre_c),]))
 }
 \keyword{datasets}

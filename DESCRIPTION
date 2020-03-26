@@ -1,12 +1,13 @@
 Package: bfsMaps
 Type: Package
-Title: Plot Maps from Switzerland by Swiss Statistics BFS
-Version: 0.9.1
-Date: 2020-03-17
+Title: Plot Maps from Switzerland by Swiss Federal Statistical Office
+Version: 0.9.3
+Date: 2020-03-25
 Authors@R: c(
   person("Andri", "Signorell", email = "andri@signorell.net", role = c("aut", "cre"))
  )
-Description: Convenience functions for plotting Switzerland maps from Swiss Statistics BFS ThemaKart. Uses the library rgdal to read and plot ESRI shape files from 'Cartographic bases for small-scale thematic mapping', obtainable free of charge at Swiss Statistics.  
+Description: At the Swiss Federal Statistical Office (SFSO), spatial maps of Switzerland are available free of charge as 'Cartographic bases for small-scale thematic mapping'. This package contains convenience functions to import ESRI (Environmental Systems Research Institute) shape files using the package 'rgdal' and to plot them easily and quickly without having to worry too much about the technical details.
+      It contains utilities to combine multiple areas to one single polygon and to find neighbours for single regions. For any point on a map, a special locator can be used to determine to which municipality, district or canton it belongs.
 Depends: base, stats, R (>= 3.6.0), sp, DescTools
 Imports: graphics, grDevices, spdep, maptools, rgdal, rlang, methods
 License: GPL (>= 2)

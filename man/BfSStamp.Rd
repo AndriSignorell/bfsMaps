@@ -4,14 +4,14 @@
 \title{Stamp the Current Plot
 %%  ~~function to do ... ~~
 }
-\description{Stamp the current plot in the extreme lower right corner with the copyright of the BfS-maps:\cr\cr \bold{"Kartengrundlage: (c) BFS, ThemaKart, 20xx"\cr\cr}
+\description{Stamp the current plot in the lower right corner with the copyright of the BfS-maps:\cr\cr \bold{"Kartengrundlage: (c) BFS, ThemaKart, 20xx"\cr\cr}
 This copyright is mandatory for all maps in public publications. The default coodinates are chosen by default in the bottomright corner of a Swiss map, but can be redefined by user.
 }
 \usage{
 BfSStamp(xy = NULL, year_n = 2020, txt = NULL, cex = 0.6, adj = c(1,0), ...)
 }
 \arguments{
-  \item{xy}{the coordinates where the text should be written.}
+  \item{xy}{the coordinates for the text to be placed.}
   \item{year_n}{the year for the compulsory BfS copyright message.}
   \item{txt}{the text to be used.}
   \item{cex}{the character extension for the text (default is 0.6)}
@@ -19,6 +19,7 @@ BfSStamp(xy = NULL, year_n = 2020, txt = NULL, cex = 0.6, adj = c(1,0), ...)
   \item{\dots}{the dots are passed to the function \code{\link{text}()}}
 
 }
+\value{None}
 
 \author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~

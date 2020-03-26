@@ -6,7 +6,7 @@
 \title{Abbreviations for Swiss Cantons
 %%   ~~ data name/kind ... ~~
 }
-\description{Abbreviations for Swiss Cantons in the correct order of BfS-ID.
+\description{Abbreviations for Swiss Cantons in the correct order of BfS-ID. The motivation to define this constant is, that the ids in the official definition do not follow the alphabetic order of the canton names.
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
 }
 \usage{kt}

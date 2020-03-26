@@ -30,16 +30,18 @@ Lakes are defined in the original files:
 \item 00_TOPO/K4_seenyyyymmdd/c_shp/k4seenyyyymmdd22_ch2007Poly.shp
 }
 }
+\value{None}
+
 \author{Andri Signorell <andri@signorell.net}
 
 \seealso{\code{\link{AddRivers}}
 }
 
-\examples{
-if(interactive()){
-  PlotKant()
-  AddLakes(categ=1)   # adds the lakes of category 1 to the map
+\examples{\donttest{
+PlotKant()
+AddLakes(categ=1)   # adds the lakes of category 1 to the map
 }}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{aplot}
+

@@ -97,8 +97,9 @@ RequireMap <- function(name_x, verbose=FALSE){
       View(read.csv(file = fn, header = TRUE, sep=";", stringsAsFactors = FALSE))
 
       note <- gettextf("\033[36m\nNote: ------\n  Maps information file is located in %s.\n\n\033[39m", fn)
-      cat(note)
+      message(note)
 
+      res <- NULL
 
     } else {
 
@@ -213,7 +214,6 @@ PlotMap <- function(map_x, id=NULL, col=NA, pbg="white", main="", vf=FALSE, bord
   if (is.numeric(id)) {
     # old (<2013): idx <- match(kt, map@data$ID0)
     idx <- match(id, map@data[,1])
-    # idx <- kt
   } else {
     idx <- match(id, map@data$ID2)
   }
@@ -227,8 +227,9 @@ PlotMap <- function(map_x, id=NULL, col=NA, pbg="white", main="", vf=FALSE, bord
 
   # set margin default only if it has not been changed by the user either
   # by par(mar or as argument par=...)
-  if(all(InDots(..., arg = "mar", default = par("mar")) == .pardefault$mar ))
+  if(all(InDots(..., arg = "mar", default = par("mar")) == .pardefault$mar )){
     Mar(bottom = 2.5, left = 1, top = 2, right = 1)
+  }
 
   plot(map, col=acol, pbg=pbg, border=bcol, lwd=lwd, add=add, ... )
 
@@ -275,17 +276,19 @@ PlotCH <- function(col="grey90", pbg="white", main="", col.vf=NA,
 
   if(!add) title( main = main )
 
+  return(xy.coords(x = 2660623, y = 1183997, xlab = "x", ylab = "y"))
+
 }
 
 
 
 
 PlotBfsMap <- function(map_x, id=NULL, col="white", pbg="white", main="", border="grey", lwd=1,
-                     col.vf=NA, border.vf="grey",
+                     col.vf=NA, border.vf=NA,
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, ...) {
 
-  vf <- !identical(col.vf, NA)
+  vf <- (!identical(col.vf, NA) & !identical(border.vf, NA))
 
   xy <- PlotMap(map_x=map_x, id = id, col = col, pbg=pbg, main=main, vf=FALSE, border=border,
                 lwd=lwd, tmtxt=tmtxt, add=add, labels=if(!vf) labels else NULL, ...)
@@ -301,7 +304,7 @@ PlotBfsMap <- function(map_x, id=NULL, col="white", pbg="white", main="", border
 
 
 PlotKant <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1,
-                       col.vf=NA, border.vf="grey",
+                       col.vf=NA, border.vf=NA,
                        labels=NULL,
                        tmtxt=TRUE, add=FALSE, map_x="kant.map", ...) {
 
@@ -313,7 +316,7 @@ PlotKant <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1
 
 
 PlotGreg <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1,
-                     col.vf=NA,  border.vf=border.vf,
+                     col.vf=NA,  border.vf=NA,
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, map_x="greg.map", ...) {
 
@@ -325,7 +328,7 @@ PlotGreg <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1
 
 
 PlotBezk <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1,
-                     col.vf=NA, border.vf="grey",
+                     col.vf=NA, border.vf=NA,
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, map_x="bezk.map", ...) {
 
@@ -336,7 +339,7 @@ PlotBezk <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1
 }
 
 PlotPolg <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1,
-                     col.vf=NA, border.vf="grey",
+                     col.vf=NA, border.vf=NA,
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, map_x="polg.map", ...) {
 
@@ -349,7 +352,7 @@ PlotPolg <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1
 
 
 PlotMSRe <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1,
-                     col.vf=NA, border.vf="grey",
+                     col.vf=NA, border.vf=NA,
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, map_x="msre.map", ...) {
 
@@ -363,13 +366,10 @@ PlotMSRe <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1
 
 PlotMapDot <- function(mar=c(5.1,4.1,0,1), oma=c(0,0,5,0), widths = c(2, 0.8)) {
 
-  # not needed anymore....
-  # if (newwin)
-  #   windows(width = 10, height = 6)
+  oldpar <- par(mar = mar, oma = oma)
+  on.exit(par(oldpar))
 
-  usr <- par("usr")
-  par(mar = mar, oma = oma)
-  layout(matrix(c(1, 2), nrow = 1, byrow = TRUE), widths=widths , TRUE)
+  layout(matrix(c(1, 2), nrow = 1, byrow = TRUE), widths=widths, TRUE)
 
 }
 
