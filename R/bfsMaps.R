@@ -85,6 +85,17 @@ AddRivers <- function(categ=1:5, col="lightskyblue3", ...) {
 }
 
 
+AddWaters <- function(lakes=1, rivers=1:5, col=NULL,
+                      border="lightskyblue3", lwd=1, ...) {
+
+  if(is.null(col))
+    col <- ColToOpaque(SetAlpha(col=border, alpha=0.6))
+
+  AddRivers(categ=rivers, col=border, lwd=lwd, ...)
+  AddLakes(categ=lakes, col=col, border=border, lwd=lwd, ...)
+}
+
+
 
 RequireMap <- function(name_x, verbose=FALSE){
 
@@ -139,8 +150,14 @@ LoadMap <- function(name_x,
                                       default = file.path(find.package("bfsMaps"), "extdata"))) {
 
   # loads one map name_x
-
   fn <- gettextf("%s/maps.csv", basedir)
+
+  # check if file exists in basedir,
+  # if it does not check the packages extdata directory
+  if(!file.exists(fn))
+    fn <- gettextf("%s/maps.csv", file.path(find.package("bfsMaps"), "extdata"))
+
+  # stop if file was not found neither in basedir nor in extdata
   if(!file.exists(fn))
     stop(gettextf("Maps information file could not be found as %s. \nCheck location!", fn))
 
@@ -276,7 +293,7 @@ PlotCH <- function(col="grey90", pbg="white", main="", col.vf=NA,
 
   if(!add) title( main = main )
 
-  return(xy.coords(x = 2660623, y = 1183997, xlab = "x", ylab = "y"))
+  invisible(xy.coords(x = 2660623, y = 1183997, xlab = "x", ylab = "y"))
 
 }
 
@@ -288,7 +305,7 @@ PlotBfsMap <- function(map_x, id=NULL, col="white", pbg="white", main="", border
                      labels=NULL,
                      tmtxt=TRUE, add=FALSE, ...) {
 
-  vf <- (!identical(col.vf, NA) & !identical(border.vf, NA))
+  vf <- ( !(identical(col.vf, NA) & identical(border.vf, NA)) )
 
   xy <- PlotMap(map_x=map_x, id = id, col = col, pbg=pbg, main=main, vf=FALSE, border=border,
                 lwd=lwd, tmtxt=tmtxt, add=add, labels=if(!vf) labels else NULL, ...)

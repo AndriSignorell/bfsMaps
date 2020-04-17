@@ -66,7 +66,7 @@ SwissLocator <- function(){
   note <- gettextf("\033[36m\nNote: ------\n  Found communities: %s.\n\n\033[39m", paste(xy.bfsnr, collapse = ", "))
   cat(note)
 
-  return(data.frame(xy.sp, SetNames(d.bfsrg[ d.bfsrg$gem_id %in% xy.bfsnr,
+  return(data.frame(xy.sp, SetNames(d.bfsrg[ match(xy.bfsnr, d.bfsrg$gem_id),
                                      c("gem_id", "gemeinde_x", "bezk_x", "msre_x", "kt_x")],
                                     rownames=NULL)))
 }

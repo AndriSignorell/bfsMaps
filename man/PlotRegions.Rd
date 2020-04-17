@@ -158,7 +158,7 @@ PlotGreg(col=colorRampPalette(c("blue", "white", "red"), space = "rgb")(7),
          main="Greater Regions CH")
 
 PlotGreg(id = c(2,4,7), col = c("bisque","darkolivegreen1","khaki"),
-         main="Espace Mittelland, Zuerich und Tessin")
+         main="Espace Mittelland, Zurich und Ticino")
 AddLakes(col="grey90", border="darkgrey")
 
 text(tkart$greg.pnt@coords[c(2,4,7),1], tkart$greg.pnt@coords[c(2,4,7),2],
@@ -174,7 +174,7 @@ head(tkart$bezk.map@data)
 
 PlotBezk(id=311:316, col=colorRampPalette(c("red", "white", "blue"), space = "rgb")(5))
 
-PlotBezk(bezk=tkart$bezk.map@data$ID0, col=rainbow(147), main="Bezirke in CH")
+PlotBezk(bezk=tkart$bezk.map@data$ID0, col=rainbow(147), main="Districts in CH")
 
 cols <- c(y=rgb(255,247,174,max=255), o=rgb(251,208,124,max=255),
           v=rgb(228,201,224,max=255), b=rgb(211,230,246,max=255),
@@ -188,7 +188,7 @@ PlotKant(col=cols[c("g","g","o","r","v","b","y","g","y","o",
                     "v","o","y","v","y","v","o","y","r","b",
                     "v","y","b","r","v","b")],
          border="grey20", lwd=1, pbg=cols["p"],
-         main="106 MS-Regionen")
+         main="106 MS-Regions")
 
 # add the MS regions borders
 plot(tkart$msre.map, add=TRUE, border="grey60")

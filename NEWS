@@ -1,4 +1,23 @@
 
+bfsMaps 0.9.4 (2020-04-17)
+-----------------------------
+
+NEW FUNCTIONS ADDED:
+  * AddWaters() is a simpler wrapper for adding rivers and lakes.
+
+UPDATED FUNCTIONS:
+  * Some extensions in helpfiles.
+  * Use R.rsp for building static vignette.
+
+BUGFIXES:
+  * Loadmap will now look also in /bfsMaps/extdata for the
+    maps.csv info file.
+  * Swisslocator() will also return multiple clicks on the same
+    spatial unit.
+
+
+
+
 bfsMaps 0.9.3 (2020-03-25)
 -----------------------------
 

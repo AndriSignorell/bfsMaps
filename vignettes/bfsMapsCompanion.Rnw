@@ -1,8 +1,0 @@
-\documentclass{article}
-\usepackage{pdfpages}
-%\VignetteIndexEntry{bfsMaps Companion}
-
-\begin{document}
-\SweaveOpts{concordance=TRUE}
-\includepdf[pages={-}, fitpaper=true]{bfsMapsCompanion_.pdf}
-\end{document}
