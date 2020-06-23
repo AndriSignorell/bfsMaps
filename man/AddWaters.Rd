@@ -1,4 +1,4 @@
-\name{AddLakes}
+\name{AddWaters}
 \alias{AddLakes}
 \alias{AddWaters}
 \alias{AddRivers}
@@ -10,13 +10,13 @@ The rivers are defined in 5 categories 1:5, wheras category 1 contains the large
 
 }
 \usage{
+AddWaters(lakes = 1, rivers = 1:5, col = NULL,
+          border = "lightskyblue3", lwd = 1, ...)
+
 AddLakes(categ = 1:2, col = "lightskyblue1", border = "lightskyblue3",
          lwd = 1, ...)
 
 AddRivers(categ = 1:5, col = "lightskyblue3", ...)
-
-AddWaters(lakes = 1, rivers = 1:5, col = NULL,
-          border = "lightskyblue3", lwd = 1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -57,6 +57,9 @@ Rivers are defined in the files:
 \author{Andri Signorell <andri@signorell.net}
 
 \examples{\donttest{
+PlotKant()
+AddWaters(lakes=1, rivers=1, border="grey")
+
 PlotKant()
 AddLakes(categ=1)      # adds the lakes of category 1 to the map
 AddRivers(categ=1:2)   # adds the rivers of category 1 and 2 to the map
