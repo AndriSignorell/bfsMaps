@@ -1,8 +1,8 @@
 Package: bfsMaps
 Type: Package
 Title: Plot Maps from Switzerland by Swiss Federal Statistical Office
-Version: 0.9.4
-Date: 2020-04-17
+Version: 0.9.4.001
+Date: 2020-06-17
 Authors@R: c(
   person("Andri", "Signorell", email = "andri@signorell.net", role = c("aut", "cre"))
  )
@@ -10,7 +10,7 @@ Description: At the Swiss Federal Statistical Office (SFSO), spatial maps of Swi
       It contains utilities to combine multiple areas to one single polygon and to find neighbours for single regions. For any point on a map, a special locator can be used to determine to which municipality, district or canton it belongs.
 Depends: base, stats, R (>= 3.6.0), sp, DescTools
 Imports: graphics, grDevices, spdep, maptools, rgdal, rlang, methods
-Suggests: R.rsp 
+Suggests: R.rsp, rgeos 
 License: GPL (>= 2)
 LazyLoad: yes
 LazyData: yes

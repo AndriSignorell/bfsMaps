@@ -1,4 +1,6 @@
 
+
+
 # ****************************************************************************
 #
 # Projekt:	      bfsMaps.r
@@ -50,10 +52,15 @@
 #   "SO", "BS", "BL", "SH", "AR", "AI", "SG", "GR", "AG", "TG", "TI",
 #   "VD", "VS", "NE", "GE", "JU")
 
+
+
+
 utils::globalVariables(c("d.bfsrg","tkart","kt"))
 
 
 AddLakes <- function(categ=1:2, col="lightskyblue1", border="lightskyblue3", lwd=1, ...) {
+
+
 
   # Fuegt Seen einer CH-Karte hinzu
   # categ definiert die Kategorien, wovon es 2 (von den grossen zu den kleinen) gibt
@@ -278,7 +285,7 @@ PlotCH <- function(col="grey90", pbg="white", main="", col.vf=NA,
                    lwd=1, tmtxt=TRUE, add=FALSE, ...) {
 
   # plot CH-border
-  ch <- bfsMaps::CombineKant(1:26, g = 1,  map = RequireMap("kant.map"))
+  ch <- CombineKant(1:26, g = 1,  map = RequireMap("kant.map"))
   # delete holes (lakes)
   h <- sapply(ch@polygons[[1]]@Polygons, slot, "hole")
   ch@polygons[[1]]@Polygons[h] <- NULL
@@ -384,7 +391,7 @@ PlotMSRe <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1
 PlotMapDot <- function(mar=c(5.1,4.1,0,1), oma=c(0,0,5,0), widths = c(2, 0.8)) {
 
   oldpar <- par(mar = mar, oma = oma)
-  on.exit(par(oldpar))
+  # on.exit(par(oldpar))
 
   layout(matrix(c(1, 2), nrow = 1, byrow = TRUE), widths=widths, TRUE)
 

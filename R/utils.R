@@ -107,6 +107,7 @@ CombineKant <- function(id, g, map=RequireMap("kant.map")){
 }
 
 
+
 # with(d.bfsrg,
 #      plot(
 #        CombinePolg(bfs_nr, preg_x),
@@ -257,3 +258,4 @@ CombineKant <- function(id, g, map=RequireMap("kant.map")){
 #
 #
 #
+
