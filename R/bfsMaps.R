@@ -397,5 +397,8 @@ PlotMapDot <- function(mar=c(5.1,4.1,0,1), oma=c(0,0,5,0), widths = c(2, 0.8)) {
 
 }
 
-
-
+.InternDummyFun <- function() {
+  # this is only to use a function from rgeos to be allowed to add the package to
+  # the depends list
+  gLength(readWKT("POINT(1 1)"))
+}

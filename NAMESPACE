@@ -13,6 +13,7 @@ importFrom("DescTools", "Coalesce", "BlankIfNA", "Recycle", "Mar", "Pal", "SetNa
 importFrom("spdep", "nb2listw", "poly2nb")
 importFrom("maptools", "unionSpatialPolygons")
 importFrom("rlang", "env_poke")
+importFrom("rgeos", "gLength")
 importFrom("rgdal","readOGR")
 importFrom("methods", "as", "slot")
 importFrom("utils", "View")
