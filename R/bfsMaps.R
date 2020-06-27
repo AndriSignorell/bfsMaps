@@ -156,7 +156,10 @@ LoadMap <- function(name_x,
                     basedir=getOption("bfsMaps.base",
                                       default = file.path(find.package("bfsMaps"), "extdata"))) {
 
-  # loads one map name_x
+  if(getOption("debug", default = FALSE))
+    cat(gettextf("Used basedir: %s\n", basedir))
+
+  # load map named name_x
   fn <- gettextf("%s/maps.csv", basedir)
 
   # check if file exists in basedir,
@@ -179,13 +182,17 @@ LoadMap <- function(name_x,
       fn <- character(length(name_x))
       for(i in 1:length(fn)){
         jj <- grepl(name_x[i], maps$name_x)
+        if(all(jj==FALSE))
+          stop(gettextf("No entry in maps.csv for shortname:  %s \n", name_x[i]))
 
-        # at least on file exists, use the last if multiple
+        # at least on file exists, use the last if there are several
         fn[i] <- maps$path[tail(which(jj), 1)]
       }
     }
 
   fn <- gettextf("%s/%s", basedir, fn)
+  if(!file.exists(fn))
+    stop(gettextf("Map file could not be found as:  %s \n", fn))
 
   opt <- options(stringsAsFactors = FALSE)
   on.exit(options(opt))
