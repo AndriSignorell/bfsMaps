@@ -2,7 +2,7 @@
 export("AddLakes", "AddRivers", "AddWaters","BfSStamp",  "CombinePolg", "CombineKant",
        "CombinePolygons", "Neighbours", "PlotBezk","PlotCH","PlotGreg",
        "PlotKant", "PlotBezk", "PlotMSRe","PlotMapDot","PlotPolg",
-       "SwissLocator", "RequireMap", "LoadMap", "tkart")
+       "SwissLocator", "RequireMap", "LoadMap", "tkart","RemoveHoles")
 
 
 importFrom("grDevices", "xy.coords")
