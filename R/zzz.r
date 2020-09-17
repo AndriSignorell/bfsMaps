@@ -10,7 +10,6 @@
   # assign("tkart", new.env(), parent.env("bfsMaps"))
 
   invisible()
-
 }
 
 # perpare map cache environment

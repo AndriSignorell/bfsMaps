@@ -24,6 +24,13 @@ Before the maps can be drawn, a few preparations must be made:
 
 }}
 
+\note{Loading the maps for the first time will display a warning "1: In OGRSpatialRef(" concerning a "Discarded datum CH1903 ...". This does not impact the use of the maps. The warnings can however only be suppressed by setting an option tag in R's \code{.Rprofile} file:
+
+\code{options(rgdal_show_exportToProj4_warnings="none")}
+
+(See also https://cran.r-project.org/web/packages/rgdal/vignettes/PROJ6_GDAL3.html)
+}
+
 \author{Andri Signorell <andri@signorell.net>
 }
 \references{

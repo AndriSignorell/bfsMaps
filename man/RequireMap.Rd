@@ -25,6 +25,15 @@ LoadMap(name_x, basedir = getOption("bfsMaps.base",
 \details{The maps are loaded to the package's environment as soon as they are used the first time in the session. Later access is so made considerably faster.
 %%  ~~ If necessary, more details than the description above ~~
 }
+
+\note{Loading the maps for the first time will display a warning "1: In OGRSpatialRef(" concerning a "Discarded datum CH1903 ...". This does not impact the use of the maps. The warnings can however only be suppressed by setting an option tag in R's \code{.Rprofile} file:
+
+\code{options(rgdal_show_exportToProj4_warnings="none")}
+
+(See also https://cran.r-project.org/web/packages/rgdal/vignettes/PROJ6_GDAL3.html)
+}
+
+
 \value{the map object
 %%  ~Describe the value returned
 %%  If it is a LIST, use
