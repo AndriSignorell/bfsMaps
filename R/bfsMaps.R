@@ -194,7 +194,10 @@ LoadMap <- function(name_x,
   if(!file.exists(fn))
     stop(gettextf("Map file could not be found as:  %s \n", fn))
 
-  opt <- options(stringsAsFactors = FALSE)
+  opt <- options(stringsAsFactors = FALSE,
+                 rgdal_show_exportToProj4_warnings="none")
+  # do not display these warnings
+  # https://cran.r-project.org/web/packages/rgdal/vignettes/PROJ6_GDAL3.html
   on.exit(options(opt))
 
   map <- rgdal::readOGR(fn, verbose = FALSE)
