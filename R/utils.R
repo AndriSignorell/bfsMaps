@@ -58,9 +58,13 @@ Neighbours <- function(map, id = NULL){
 
 SwissLocator <- function(){
   xy.sp <- SpatialPoints(data.frame(locator()))
-  # we must apply some kind of proj4string since 2017 ...
   polg.map <- RequireMap("polg.map")
-  proj4string(xy.sp) <- proj4string(polg.map)
+
+  # we must apply some kind of proj4string since 2017 ...
+  # project string is not completely set with that statement! (no to +towgs84=674...)
+  # proj4string(xy.sp) <- proj4string(polg.map)
+  xy.sp@proj4string <- polg.map@proj4string
+
   xy.bfsnr <- over(xy.sp, polg.map)[, 1]
 
   note <- gettextf("\033[36m\nNote: ------\n  Found communities: %s.\n\n\033[39m", paste(xy.bfsnr, collapse = ", "))

@@ -181,12 +181,15 @@ LoadMap <- function(name_x,
 
       fn <- character(length(name_x))
       for(i in 1:length(fn)){
-        jj <- grepl(name_x[i], maps$name_x)
-        if(all(jj==FALSE))
+#        jj <- grepl(name_x[i], maps$name_x)
+# we need exactly matching file names here, not similar ones
+        jj <- match(name_x[i], maps$name_x)
+
+        if(all(is.na(jj)))
           stop(gettextf("No entry in maps.csv for shortname:  %s \n", name_x[i]))
 
         # at least on file exists, use the last if there are several
-        fn[i] <- maps$path[tail(which(jj), 1)]
+        fn[i] <- maps$path[tail(jj, 1)]
       }
     }
 
