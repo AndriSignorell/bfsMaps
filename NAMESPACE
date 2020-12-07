@@ -2,13 +2,13 @@
 export("AddLakes", "AddRivers", "AddWaters","BfSStamp",  "CombinePolg", "CombineKant",
        "CombinePolygons", "Neighbours", "PlotBezk","PlotCH","PlotGreg",
        "PlotKant", "PlotBezk", "PlotMSRe","PlotMapDot","PlotPolg",
-       "SwissLocator", "RequireMap", "LoadMap", "tkart","RemoveHoles")
+       "SwissLocator", "RequireMap", "LoadMap", "tkart","RemoveHoles","DownloadBfSMaps")
 
 
 importFrom("grDevices", "xy.coords")
 importFrom("graphics", "layout", "legend", "locator", "par", "plot", "text",
            "title", "strheight", "strwidth")
-importFrom("utils", "packageVersion", "globalVariables","read.csv", "tail")
+importFrom("utils", "packageVersion", "globalVariables","read.csv", "tail", "download.file", "unzip")
 importFrom("DescTools", "Coalesce", "BlankIfNA", "Recycle", "Mar", "Pal", "SetNames", "InDots", "ColToOpaque", "SetAlpha")
 importFrom("spdep", "nb2listw", "poly2nb")
 importFrom("maptools", "unionSpatialPolygons")
@@ -18,3 +18,4 @@ importFrom("rgdal","readOGR")
 importFrom("methods", "as", "slot")
 importFrom("utils", "View")
 importFrom("sp","SpatialPolygons","SpatialPoints","over", "proj4string", "proj4string<-", "plot")
+

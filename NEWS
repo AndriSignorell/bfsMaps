@@ -1,15 +1,20 @@
 
-bfsMaps 0.9.5 (2020-05-17)
+
+
+bfsMaps 0.9.5 (2020-12-06)
 -----------------------------
 
 NEW FUNCTIONS ADDED:
   * RemoveHoles() would remove polygons within others.
+  * DownloadBfSMaps() is a new helperfunction to install the map
+    data on the user system.
 
 UPDATED FUNCTIONS:
   * rgeos is now suggested for convenience.
 
 BUGFIXES:
   * par must not be reset in PlotMapDot()
+  * Swisslocator() had a problem with proj4string.
 
 
 

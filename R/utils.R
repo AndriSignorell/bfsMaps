@@ -145,6 +145,43 @@ RemoveHoles <- function (x) {
 
 
 
+DownloadBfSMaps <- function(url="https://www.bfs.admin.ch/bfsstatic/dam/assets/11927607/master",
+                            path=paste0(path.expand("~"), "/MapData")) {
+
+  cat("\nAttempt to download mapdata from Swiss Federal Office of Statistics (SFSO):\n\n")
+
+  cat("start downloading...")
+  temp <- tempfile()
+  download.file(url = url, temp, mode="wb", quiet = TRUE)
+  cat("OK\n")
+
+  cat("unzipping file...")
+  unzip(temp, exdir=path)
+  cat("OK\n")
+
+  cat("renaming folders...")
+  flaeche <- grep("fl.che(?!.*/)", list.dirs(path), value=TRUE, perl = TRUE)
+  for(x in flaeche){
+    file.rename(x, gsub("fl.che", "fl\xE4che", x))
+  }
+  cat("OK\n\n")
+
+  opt <- gettextf('options(bfsMaps.base="%s")',
+                  paste(path, list.files(path),
+                        grep(pattern = "GEOM",
+                             x = list.files(paste(path, list.files(path), sep="/")),
+                             value = TRUE),
+                        sep="/"))
+
+  cat(gettextf("Enter the following entry in your .RProfile file:\n  %s ", opt), "\n\n")
+
+  invisible(opt)
+
+}
+
+
+
+
 # with(d.bfsrg,
 #      plot(
 #        CombinePolg(bfs_nr, preg_x),
