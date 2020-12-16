@@ -1,73 +1,36 @@
 
-
-
 # ****************************************************************************
 #
-# Projekt:	      bfsMaps.r
+# Projekt:	  bfsMaps.r
 #
-# Zweck:	        Convenience-wrapper fuer die Erzeugung von CH-Landkarten
-#			            Naehere Infos zur Nomenklatur:
-#			            http://www.bfs.admin.ch/bfs/portal/de/index/infothek/nomenklaturen/blank/blank/raum_glied/01.html
+# Zweck:	    Convenience-wrapper for plotting CH maps
 #
-# Autor:	        Andri Signorell
-# Version:	      17.1
+# Autor:	    Andri Signorell
+# Version:	  0.9.6
 #
-# Datum:
-#     01.12.2017  Neugestaltung Kartenablage
-#                 neue Funktionen CombinePolygons, CombinePolg, CombineKant, BfSStamp
-#     01.05.2015  neue Funktion Neighbours
-#     01.03.2014  Aktualisierung auf Kartenmaterial und Daten 2014
-#                 Neu: Dependent: DescTools, damit FindColor und ColorLegend weg
-#                 Check nach CRAN Norm
-#			19.03.2013  Aktualisierung auf Kartenmaterial und Daten 2013
-#			            Ersatz ColorStrip durch ColorLegend und GetColor durch FindColor
-#     25.09.2012  PlotCH hinzugefuegt
-#     13.06.2012  Beschriftungsposition im ColorStrip am Rand des Strips und nicht in der Mitte
-#     08.05.2012  Korrektur Bug in GetColor (NA anstatt 0 bei findInterval)
-#     17.12.2011  Ergaengzung plot.mapdot
-#     09.08.2011  Korrekturen
-#			25.03.2011	fuer die Erzeugung des Package
-#     18.01.2011  erzeugt
+# Datum:      2020-12-20  undergone some garbage collection
+#             2011-01-18  goes back to a first version in 2011
 #
 #
 # ****************************************************************************
 
 
 # ToDo:
-# * Karten in data ablegen
-# * Bug in Neighbours beheben --> Beat
-# * HelpFile CombinePolygons mit Beispiel HSA
-# * Dokumentation nachfuehren "CombinePolygons"
-# * neue BfS-Zahlen Gemeinden
-# * Stamp als option implementieren, default Text wie unten
+# * implement Stamp() as option, default text as defined
 
 
-
-# globalVariables(c("kt","ch.lakes","ch.rivers", "ch.map", "bezk.map", "bezkvf.map", "d.bfsrg", "greg.map",
-#                   "gregvf.map", "kant.map", "kantvf.map", "msreg.map", "msregvf.map", "polg.map", "polgvf.map"))
-
-# kt <-  as.character(unique(d.bfsrg$kt_x))
-
-# kt <- c("ZH", "BE", "LU", "UR", "SZ", "OW", "NW", "GL", "ZG", "FR",
-#   "SO", "BS", "BL", "SH", "AR", "AI", "SG", "GR", "AG", "TG", "TI",
-#   "VD", "VS", "NE", "GE", "JU")
-
-
-
-
+# globalVariables
 utils::globalVariables(c("d.bfsrg","tkart","kt"))
 
 
 AddLakes <- function(categ=1:2, col="lightskyblue1", border="lightskyblue3", lwd=1, ...) {
 
+  # Add lakes to an already plotted map
+  # categ defines the categories, of which there are 2 for the lakes.
+  # (the lakes can be found in two separate shape files *.shp)
 
-
-  # Fuegt Seen einer CH-Karte hinzu
-  # categ definiert die Kategorien, wovon es 2 (von den grossen zu den kleinen) gibt
-  # (die Seen sind nach Kategorie in unterschiedlichen shp-Files abgelegt)
-
-  # Bsp:		plot(ch.map)
-  #			AddLakes( categ=1 )	# Seen der Kategorie 1 zuf?gen
+  # Example:		plot(ch.map)
+  #			        AddLakes(categ=1)	  # add lakes of category 1 (the biggest ones)
 
   ch.lakes <- RequireMap(gettextf("see%s.map", 1:2))
 
@@ -78,12 +41,12 @@ AddLakes <- function(categ=1:2, col="lightskyblue1", border="lightskyblue3", lwd
 
 AddRivers <- function(categ=1:5, col="lightskyblue3", ...) {
 
-  # Fuegt Fluesse einer CH-Karte hinzu
-  # categ definiert die Kategorien, wovon es 5 (von den grossen zu den kleinen) gibt
-  # (die Fluesse sind nach Kategorie in unterschiedlichen shp-Files abgelegt)
+  # Add rivers to an already plotted map
+  # categ defines the categories, of which there are 3 for the rivers
+  # (the lakes can be found in two separate shape files *.shp)
 
-  # Bsp:		plot(ch.map)
-  #			AddRivers( categ=c(1:3) )	# Nur Fluesse der categ 1:3 zufuegen
+  # Example:		plot(ch.map)
+  #			        AddRivers(categ=1:3)	# add lakes of category 1 (the biggest ones)
 
   ch.rivers <- RequireMap(gettextf("fluss%s.map", 1:5))
 
@@ -203,13 +166,8 @@ LoadMap <- function(name_x,
   # https://cran.r-project.org/web/packages/rgdal/vignettes/PROJ6_GDAL3.html
   on.exit(options(opt))
 
-  map <- rgdal::readOGR(fn, verbose = FALSE)
+  map <- rgdal::readOGR(fn, verbose = FALSE, encoding = "UTF-8", use_iconv=TRUE)
 
-  # unclear if still needed:
-      # Encoding(levels(map[[i]]@data[, 1])) <- "latin1"
-      # levels(map[[i]]@data[,1]) <- iconv(levels(map[[i]]@data[, 1]), "latin1", "UTF-8")
-      # Encoding(levels(map[[i]]@data[, 2])) <- "latin1"
-      # levels(map[[i]]@data[,2]) <- iconv(levels(map[[i]]@data[, 2]), "latin1", "UTF-8")
 
   if(name_x %in% c("kant.map", "kantvf.map") )
   map@data$ID2 <- c("ZH","BE","LU","UR","SZ","OW","NW","GL","ZG","FR","SO","BS","BL","SH",
@@ -410,7 +368,8 @@ PlotMapDot <- function(mar=c(5.1,4.1,0,1), oma=c(0,0,5,0), widths = c(2, 0.8)) {
 
 }
 
-.InternDummyFun <- function() {
+
+.InternalDummyFunction <- function() {
   # this is only to use a function from rgeos to be allowed to add the package to
   # the depends list
   gLength(readWKT("POINT(1 1)"))

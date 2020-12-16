@@ -40,9 +40,7 @@ BfSStamp <- function(xy = NULL, year_n = 2020, txt=NULL, cex=0.6, adj=c(1,0), ..
 
 
 Neighbours <- function(map, id = NULL){
-  # require(spdep)
-  # defined as import
-  # Findet alle Nachbarn
+
   nbs <- poly2nb(as(map, "SpatialPolygons"))
   nbslist <- nb2listw(nbs, style="W", zero.policy=TRUE)$neighbours
   attributes(nbslist) <- NULL
@@ -70,7 +68,7 @@ SwissLocator <- function(){
   note <- gettextf("\033[36m\nNote: ------\n  Found communities: %s.\n\n\033[39m", paste(xy.bfsnr, collapse = ", "))
   cat(note)
 
-  return(data.frame(xy.sp, SetNames(d.bfsrg[ match(xy.bfsnr, d.bfsrg$gem_id),
+  return(tkart$found <- data.frame(xy.sp, SetNames(d.bfsrg[ match(xy.bfsnr, d.bfsrg$gem_id),
                                      c("gem_id", "gemeinde_x", "bezk_x", "msre_x", "kt_x")],
                                     rownames=NULL)))
 }
@@ -89,8 +87,6 @@ CombinePolygons <- function(map, g){
 
 CombinePolg <- function(id, g, map=RequireMap("polg.map")){
 
-  # idx <- merge(polg.map@data, d.hsagem, by.x="Primary_ID", by.y="bfs_nr", all.x=TRUE, all.y=FALSE)
-
   d.grp <- merge(map@data, data.frame(id=id, g=g), by.x=1, by.y="id", all.x=TRUE)
   grp <- d.grp[order(as.numeric(as.character(d.grp[, 1]))), "g"]
 
@@ -101,11 +97,11 @@ CombinePolg <- function(id, g, map=RequireMap("polg.map")){
 
 CombineKant <- function(id, g, map=RequireMap("kant.map")){
 
-  # Gruppen zuweisen und danach sortieren f?r die Polygone
+  # define groups and then sort for the polynoms
   d.grp <- merge(map@data, data.frame(id=id, g=g), by.x="ID0", by.y="id", all.x=TRUE)
   grp <- d.grp[order(as.numeric(as.character(d.grp$ID0))), "g"]
 
-  # die Sortierung muss gleich sein, wie in der Karte
+  # the order must be the same as in the map
   CombinePolygons(map, grp)
 
 }

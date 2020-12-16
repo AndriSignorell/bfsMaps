@@ -1,4 +1,10 @@
 
+# x_ <- grep("_x", colnames(d.bfsrg), v=T)
+# sapply(d.bfsrg[, x_], unique)
+#
+# for(x in grep("_x", colnames(d.bfsrg), v=T)){
+#   d.bfsrg[,x] <- iconv(d.bfsrg[,x], to="UTF-8")
+# }
 
 # Load Raumregionen
 # https://www.agvchapp.bfs.admin.ch/de/typologies/query
