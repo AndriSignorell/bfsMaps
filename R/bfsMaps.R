@@ -169,9 +169,11 @@ LoadMap <- function(name_x,
   map <- rgdal::readOGR(fn, verbose = FALSE, encoding = "UTF-8", use_iconv=TRUE)
 
 
-  if(name_x %in% c("kant.map", "kantvf.map") )
-  map@data$ID2 <- c("ZH","BE","LU","UR","SZ","OW","NW","GL","ZG","FR","SO","BS","BL","SH",
-                         "AR","AI","SG","GR","AG","TG","TI","VD","VS","NE","GE","JU")
+  if(name_x %in% c("kant.map", "kantvf.map") ){
+    map@data$ID2 <- c("ZH","BE","LU","UR","SZ","OW","NW","GL","ZG","FR","SO","BS","BL","SH",
+                           "AR","AI","SG","GR","AG","TG","TI","VD","VS","NE","GE","JU")
+    map@data[, 2] <- unique(d.bfsrg$kt_bez_x)
+  }
 
   assign(name_x, map, envir = tkart)
 

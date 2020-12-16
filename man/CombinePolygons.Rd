@@ -38,7 +38,7 @@ require(DescTools)
 # Representation of the language areas in CH combined via cantons
 # by majority per canton
 tkt <- table(d.bfsrg$kt_c, d.bfsrg$sprgeb_x)
-grp <- levels(d.bfsrg$sprgeb_x)[apply(tkt, 1, which.max)]
+grp <- unique(d.bfsrg$sprgeb_x)[apply(tkt, 1, which.max)]
 
 # combine and plot cantons
 plot(CombineKant(rownames(tkt), grp), col=SetAlpha(c(horange, hyellow, hecru), 0.8),

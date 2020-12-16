@@ -4,11 +4,9 @@ Title: Plot Maps from Switzerland by Swiss Federal Statistical Office
 Version: 0.9.5.2
 Date: 2020-12-08
 Authors@R: c(
-  person("Andri"     , "Signorell", email = "andri@signorell.net", role = c("aut", "cre"))
+  person("Andri"     , "Signorell", email = "andri@signorell.net", role = c("aut", "cre")),
   person("Juerg"     , "Guggenbuehl", role = c("ctb")),
-  person("Jeffery S.", "Evans", role = c("ctb")),
-
- )
+  person("Jeffery S.", "Evans", role = c("ctb")))
 Description: At the Swiss Federal Statistical Office (SFSO), spatial maps of Switzerland are available free of charge as 'Cartographic bases for small-scale thematic mapping'. This package contains convenience functions to import ESRI (Environmental Systems Research Institute) shape files using the package 'rgdal' and to plot them easily and quickly without having to worry too much about the technical details.
       It contains utilities to combine multiple areas to one single polygon and to find neighbours for single regions. For any point on a map, a special locator can be used to determine to which municipality, district or canton it belongs.
 Depends: base, stats, R (>= 3.6.0), sp, DescTools

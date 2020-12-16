@@ -1,16 +1,14 @@
 
 
-bfsMaps 0.9.6 (2021-01-08)
+bfsMaps 0.9.6 (2020-12-16)
 -----------------------------
 
-NEW FUNCTIONS ADDED:
-  *
-
 UPDATED FUNCTIONS:
-  *
+  * Swisslocator() will store the results in the variable tkart$found.
 
 BUGFIXES:
   * Encoding for d.bfsrg had not been set correctly.
+  * Encoding for the map@data has been fixed.
 
 
 

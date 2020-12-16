@@ -10,7 +10,7 @@
 \usage{
 SwissLocator()
 }
-%- maybe also 'usage' for other objects documented here.
+
 \value{For each clicked and identified point the coordinates, the political community, the district and the canton will be returned.\cr
 \preformatted{
             x        y bfs_nr       community_x               district_x  kt_x
@@ -19,6 +19,7 @@ SwissLocator()
 1962 690861.6 119006.1   5524 Goumoens-la-Ville District du Gros-de-Vaud    VD
 }
 
+The result will also be stored for later use in the variable \code{tkart$found}.
 }
 
 \author{Andri Signorell <andri@signorell.net>
