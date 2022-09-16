@@ -8,7 +8,9 @@
 This copyright is mandatory for all maps in public publications. The default coodinates are chosen by default in the bottomright corner of a Swiss map, but can be redefined by user.
 }
 \usage{
-BfSStamp(xy = NULL, year_n = 2020, txt = NULL, cex = 0.6, adj = c(1,0), ...)
+BfSStamp(xy = NULL,
+         year_n = getOption("bfsMaps.year", Year(Today())),
+         txt = NULL, cex = 0.6, adj = c(1,0), ...)
 }
 \arguments{
   \item{xy}{the coordinates for the text to be placed.}
@@ -19,6 +21,8 @@ BfSStamp(xy = NULL, year_n = 2020, txt = NULL, cex = 0.6, adj = c(1,0), ...)
   \item{\dots}{the dots are passed to the function \code{\link{text}()}}
 
 }
+\details{The default value for the year can be entered as option in the .Rprofile file.
+bfsMaps.year=2022 would set the default to 2022.}
 \value{None}
 
 \author{Andri Signorell <andri@signorell.net>

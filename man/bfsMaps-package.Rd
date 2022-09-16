@@ -20,11 +20,11 @@ Before the maps can be drawn, a few preparations must be made:
 \item download the maps following the link 'Swiss Federal Office of Statistics - Base maps' (below) and unzip them into a folder
 
 \item{declare the location as \code{options(bfsMaps.base = "//path_to_my_maps/")} }
-\item{names and shortnames of the maps are stored in a file named \code{'maps.csv'}, which can be stored either in the \code{'bfsMaps.base'} folder or alternatively in the packages installation folder. \cr An example file for the last map edition ('ThemaKart map boundaries - Set 2020') is included in the package and can be found in the packages \code{.../extdata} folder. If you are using a different edition, you have to adjust the file accordingly. }
+\item{names and shortnames of the maps are stored in a file named \code{'maps.csv'}, which can be stored either in the \code{'bfsMaps.base'} folder or alternatively in the packages installation folder. \cr An example file for the last map edition ('ThemaKart map boundaries - Set 2022') is included in the package and can be found in the packages \code{.../extdata} folder. If you are using a different edition, you have to adjust the file accordingly. }
 
 }}
 
-\note{Loading the maps for the first time will display a warning "1: In OGRSpatialRef(" concerning a "Discarded datum CH1903 ...". This does not impact the use of the maps. The warnings can however only be suppressed by setting an option tag in R's \code{.Rprofile} file:
+\note{Loading the maps for the first time will display a warning "1: In OGRSpatialRef(" concerning a "Discarded datum CH1903 ...". This does NOT impact the use of the maps. The warnings can however only be suppressed by setting an option tag in R's \code{.Rprofile} file:
 
 \code{options(rgdal_show_exportToProj4_warnings="none")}
 
@@ -145,11 +145,17 @@ loctext(2714275, 1175027,"  Rabius")
 
 
 # Swiss metropolitan areas
-cols <- c("darkolivegreen1","royalblue1","red","bisque3","yellow","orange","beige")
+cols <- c("royalblue1","red","bisque3","yellow","orange","beige")
+# we have to prepare the background here, for some reasons...
+PlotCH(col="darkolivegreen1", border="grey", lwd=2, main="Swiss metropolitan areas")
 RequireMap("metr.map")   # require other map
-plot(tkart$metr.map, usePolypath=TRUE, col=cols[as.numeric(tkart$metr.map@data$ID0)] )
-legend(x="topleft", legend=tkart$metr.map@data$ID1, fill=cols, bg="white", cex=0.8 )
-title(main="Swiss metropolitan areas")
+plot(tkart$metr.map, add=TRUE, border="grey60",
+     col=cols)
+AddLakes(col="grey90", border="grey70")
+legend( x="topleft", legend=c("Laendliche Gemeinde", tkart$metr.map@data$name),
+        fill=c("darkolivegreen1", cols),
+        bg="white", cex=0.8, xpd=TRUE )
+
 
 
 # We can find the neighbor cantons, here for the canton Glarus (id=8)
@@ -157,3 +163,5 @@ nbs <- Neighbours(map=tkart$kant.map, id=8)[[1]]
 PlotKant(id = c(8, nbs), col=c("steelblue", rep("grey80", length(nbs))),
          main="Find Neighbours")
 }}
+
+

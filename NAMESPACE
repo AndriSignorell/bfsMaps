@@ -9,7 +9,7 @@ importFrom("grDevices", "xy.coords")
 importFrom("graphics", "layout", "legend", "locator", "par", "plot", "text",
            "title", "strheight", "strwidth")
 importFrom("utils", "packageVersion", "globalVariables","read.csv", "tail", "download.file", "unzip")
-importFrom("DescTools", "Coalesce", "BlankIfNA", "Recycle", "Mar", "Pal", "SetNames", "InDots", "ColToOpaque", "SetAlpha")
+importFrom("DescTools", "Coalesce", "BlankIfNA", "Recycle", "Mar", "Pal", "SetNames", "InDots", "ColToOpaque", "SetAlpha", "Year", "Today")
 importFrom("spdep", "nb2listw", "poly2nb")
 importFrom("maptools", "unionSpatialPolygons")
 importFrom("rlang", "env_poke")

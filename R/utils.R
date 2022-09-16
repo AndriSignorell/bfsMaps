@@ -3,7 +3,8 @@
 # Utility functions
 
 
-BfSStamp <- function(xy = NULL, year_n = 2020, txt=NULL, cex=0.6, adj=c(1,0), ...){
+BfSStamp <- function(xy = NULL, year_n = getOption("bfsMaps.year", Year(Today())),
+                     txt=NULL, cex=0.6, adj=c(1,0), ...){
 
   if(is.null(xy)){
     xy = list(x=2835000, y = 1075000)
@@ -103,8 +104,8 @@ CombinePolg <- function(id, g, map=RequireMap("polg.map")){
 CombineKant <- function(id, g, map=RequireMap("kant.map")){
 
   # define groups and then sort for the polynoms
-  d.grp <- merge(map@data, data.frame(id=id, g=g), by.x="ID0", by.y="id", all.x=TRUE)
-  grp <- d.grp[order(as.numeric(as.character(d.grp$ID0))), "g"]
+  d.grp <- merge(map@data, data.frame(id=id, g=g), by.x="id", by.y="id", all.x=TRUE)
+  grp <- d.grp[order(as.numeric(as.character(d.grp$id))), "g"]
 
   # the order must be the same as in the map
   CombinePolygons(map, grp)
