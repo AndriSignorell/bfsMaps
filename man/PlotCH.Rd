@@ -61,7 +61,7 @@ Andri Signorell <andri@signorell.net>
 \seealso{\code{\link{PlotGreg}}, \code{\link{PlotKant}}, \code{\link{PlotBezk}}, \code{\link{PlotPolg}}, \code{\link{d.bfsrg}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{\donttest{
+\examples{\donttest{\dontrun{
 PlotCH(col="lightgrey")
 AddLakes()
 
@@ -89,7 +89,7 @@ rect(xleft=xc-sw, ytop=(yc+2*sw)-sw, xright=xc+sw, ybottom=(yc+2*sw)+sw, col=cco
 
 # using panel.first ensures that the borders are not hidden by waters
 PlotCH(col=NA, lwd=2, panel.first=AddLakes())
-}}
+}}}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ hplot }

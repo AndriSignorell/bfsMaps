@@ -34,7 +34,7 @@ PlotMapDot(mar = c(5.1,4.1,0,1), oma = c(0,0,5,0), widths = c(2,0.8))
 
 \seealso{\code{\link{layout}}}
 
-\examples{\donttest{
+\examples{\donttest{\dontrun{
 require(DescTools)
 
 yes_p <- c(ZH=0.465, BE=0.417, LU=0.376, UR=0.308, SZ=0.276,
@@ -67,5 +67,5 @@ DescToolsOptions(opt)
 
 # reset the layout
 layout(1)
-}}
+}}}
 \keyword{ hplot }

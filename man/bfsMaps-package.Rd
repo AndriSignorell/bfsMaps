@@ -48,7 +48,7 @@ Swiss Premium Regions: \url{https://www.priminfo.admin.ch/de/regionen}
 \examples{
 # Note:
 #   The examples can not be run without having the map data installed before!
-\donttest{
+\donttest{\dontrun{
 # PlotKant simply tasks for the id and the color of the spatial region
 # labels can be directly placed
 PlotKant(id=c("ZH", "FR"), col=c("yellow","limegreen"), label=TRUE)
@@ -162,6 +162,6 @@ legend( x="topleft", legend=c("Laendliche Gemeinde", tkart$metr.map@data$name),
 nbs <- Neighbours(map=tkart$kant.map, id=8)[[1]]
 PlotKant(id = c(8, nbs), col=c("steelblue", rep("grey80", length(nbs))),
          main="Find Neighbours")
-}}
+}}}
 
 

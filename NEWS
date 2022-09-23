@@ -1,4 +1,5 @@
 
+
 bfsMaps 0.9.7 (2022-09-16)
 -----------------------------
 
@@ -6,8 +7,6 @@ UPDATED FUNCTIONS:
   * BfsStamp() uses the option "bfsMaps.year" to define the year.
   * Some changes due to changes on the side of BfS.
   * Change to UTF-8 due to CRAN requirements.
-
-
 
 
 

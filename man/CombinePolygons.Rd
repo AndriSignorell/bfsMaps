@@ -32,7 +32,7 @@ CombinePolg(id, g, map = RequireMap("polg.map"))
 \seealso{\code{\link{unionSpatialPolygons}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{\donttest{
+\examples{\donttest{\dontrun{
 require(DescTools)
 
 # Representation of the language areas in CH combined via cantons
@@ -48,7 +48,7 @@ plot(CombineKant(rownames(tkt), grp), col=SetAlpha(c(horange, hyellow, hecru), 0
 BfSStamp()
 # waters make the maps more realistic ...
 AddLakes(col = "grey80", border = "grey40")
-}}
+}}}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ spatial }% use one of  RShowDoc("KEYWORDS")

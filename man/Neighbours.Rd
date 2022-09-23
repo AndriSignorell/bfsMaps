@@ -29,7 +29,7 @@ Neighbours(map, id = NULL)
 %%  ~~who you are~~
 }
 
-\examples{\donttest{
+\examples{\donttest{\dontrun{
 RequireMap("kant.map")
 nbs <- Neighbours(tkart$kant.map, kt_id <- 18)[[1]]
 PlotKant(c(kt_id, nbs), col=c("red", rep("green", length(nbs))) )
@@ -39,7 +39,7 @@ RequireMap("polg.map")
 nbs <- Neighbours(tkart$polg.map, polg_id <- c(3851, 3352))
 PlotPolg(c(polg_id, unlist(nbs)),
          col=c(rep("red", 2), rep("green", length(unlist(nbs)))))
-}}
+}}}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{spatial}
