@@ -1,6 +1,16 @@
 
 
-bfsMaps 0.9.7 (2022-09-16)
+
+bfsMaps 0.9.8 (2022-09-29)
+-----------------------------
+
+BUGFIXES:
+  * UTF-8 Encoding for d.bfsrg still had not been set correctly.
+
+
+
+
+bfsMaps 0.9.7 (2022-09-20)
 -----------------------------
 
 UPDATED FUNCTIONS:
