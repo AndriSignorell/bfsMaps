@@ -147,8 +147,11 @@ RemoveHoles <- function (x) {
 
 
 
-DownloadBfSMaps <- function(url="https://www.bfs.admin.ch/bfsstatic/dam/assets/11927607/master",
+DownloadBfSMaps <- function(url="https://dam-api.bfs.admin.ch/hub/api/dam/assets/21245514/master",
                             path=paste0(path.expand("~"), "/MapData")) {
+
+  # 2020: https://www.bfs.admin.ch/bfsstatic/dam/assets/11927607/master
+  # 2022: https://dam-api.bfs.admin.ch/hub/api/dam/assets/21245514/master
 
   cat("\nAttempt to download mapdata from Swiss Federal Office of Statistics (SFSO):\n\n")
 

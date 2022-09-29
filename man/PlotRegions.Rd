@@ -134,7 +134,8 @@ Andri Signorell <andri@signorell.net>
 \examples{
 # Note:
 #   The examples can not be run without having the map data installed before!
-\donttest{\dontrun{
+try( {
+
 # define the ids for the cantons and the according colors
 PlotKant(id=c("GR","ZH","VS"), col=c("lightgrey","lightblue","lightsalmon"))
 
@@ -216,6 +217,7 @@ PlotPolg(id=1:10,
 # plot all communities
 PlotPolg(id=tkart$polg.map@data$ID0, col=rainbow(nrow(tkart$polg.map@data)),
          main="Political communities in CH")
-}}}
+
+})}
 \keyword{ hplot }
 \keyword{ spatial }

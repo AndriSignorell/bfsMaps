@@ -44,11 +44,13 @@ LoadMap(name_x, basedir = getOption("bfsMaps.base",
 \author{Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~
 }
-\examples{\donttest{\dontrun{
+\examples{try( {
+
 # use map containing Swiss metropolitan regions
 mymap <- RequireMap(78)
-plot(mymap, col=Pal("Helsana"))}
-}}
+plot(mymap, col=Pal("Helsana"))
+
+})}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory (show via RShowDoc("KEYWORDS")):
 % \keyword{ ~kwd1 }

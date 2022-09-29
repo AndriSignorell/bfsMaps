@@ -19,7 +19,9 @@ Removes all holes (null geometry) in polygon sp class objects
 A hole is considered a polygon within a polygon representing null geometry.
 }
 \note{This is a verbatim copy of \bold{spatialEco::remove.holes}.}
-\examples{\donttest{
+\examples{# Do not test, the test takes too long on CRAN and throws an error.
+# (09-2022)
+\donttest{
 library(sp)
 Sr1 <- Polygon(cbind(c(2,4,4,1,2),c(2,3,5,4,2)))
 Sr2 <- Polygon(cbind(c(5,4,2,5),c(2,3,2,2)))
