@@ -114,6 +114,26 @@ legend(x="topleft", fill=c("white","olivedrab4","olivedrab3","olivedrab2"), cex=
 PlotKant(col=NA, border="grey40", add=TRUE)
 AddLakes()
 
+# Cities
+cols <- as.vector(sapply(c(hred, hblue, hyellow),
+                         SetAlpha, alpha=c(1, 0.7, 0.5)))
+Mar(right=20)
+PlotPolg(id=d.bfsrg$gem_id, col=cols[as.numeric(d.bfsrg$gem_typ9_x)],
+         border="grey70")
+AddLakes(col="grey90", border="grey50")
+PlotKant(add=TRUE, col=NA, border="grey30")
+legend(x=2854724, y=1292274, fill=cols, border=NA, box.col=NA,
+       y.intersp=c(1,1,1, 1.1,1.05,1.05, 1.1,1.07,1.07),
+       legend=StrTrunc(levels(d.bfsrg$gem_typ9_x), 50),
+       xjust=0, yjust=1, cex=0.8, xpd=NA)
+
+
+# Degree of urbanisation
+PlotPolg(col=SetAlpha(c(hred, hblue, hyellow), 0.8)[as.numeric(d.bfsrg$degurba_x)],
+         main="Degree of Urbanisation 2022")
+PlotKant(add=TRUE, border="grey30")
+AddLakes(col = "grey90", border = "grey50")
+
 
 # Pick data out of shape files slots (here: cantons' area)
 acant <- sapply( slot(tkart$kant.map, "polygons"), function(x) slot(x, "area"))

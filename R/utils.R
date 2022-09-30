@@ -70,7 +70,7 @@ SwissLocator <- function(){
   cat(note)
 
   res <- data.frame(xy.sp, SetNames(d.bfsrg[ match(xy.bfsnr, d.bfsrg$gem_id),
-                                     c("gem_id", "gemeinde_x", "bezk_x", "msre_x", "kt_x")],
+                                     c("gem_id", "gemeinde_x", "bezk_x", "kt_x")],
                                     rownames=NULL))
 
   assign("found", res, envir = tkart)
