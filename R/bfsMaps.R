@@ -183,15 +183,19 @@ LoadMap <- function(name_x,
 
 
 
-PlotMap <- function(map_x, id=NULL, col=NA, pbg="white", main="", vf=FALSE, border="grey", lwd=1,
-                    labels = NULL,
-                    tmtxt=TRUE, add=FALSE, ...) {
+PlotMap <- function(map_x, id=NULL, col=NA, pbg="white", main="",
+                    vf=FALSE, border="grey", lwd=1, labels = NULL, tmtxt=TRUE,
+                    add=FALSE, ...) {
 
   # check for loaded maps
-  if(vf)
-    map_x <- paste0(strsplit(map_x, "\\.")[[1]], c("vf", ""), collapse=".")
+  if(is.character(map_x)){
+    if (vf)
+      map_x <- paste0(strsplit(map_x, "\\.")[[1]], c("vf", ""), collapse = ".")
+    map <- RequireMap(map_x)
 
-  map <- RequireMap(map_x)
+  } else {
+    map <- map_x
+  }
 
   if(is.null(id))
     # will be a factor else... we can't use stringsAsFactors when reading (!)
@@ -212,6 +216,7 @@ PlotMap <- function(map_x, id=NULL, col=NA, pbg="white", main="", vf=FALSE, bord
     # old (<2013): idx <- match(kt, map@data$ID0)
     idx <- match(id, map@data[,1])
   } else {
+
     idx <- match(id, map@data$ID2)
   }
 
@@ -225,15 +230,23 @@ PlotMap <- function(map_x, id=NULL, col=NA, pbg="white", main="", vf=FALSE, bord
   # set margin default only if it has not been changed by the user either
   # by par(mar or as argument par=...)
   if(all(InDots(..., arg = "mar", default = par("mar")) == .pardefault$mar )){
+
     Mar(bottom = 2.5, left = 1, top = 2, right = 1)
   }
 
   plot(map, col=acol, pbg=pbg, border=bcol, lwd=lwd, add=add, ... )
 
-  # get the point map with the same name
-  map_pnt <- RequireMap(gsub(".map", ".pnt", map_x, fixed = TRUE))
+  if(is.character(map_x)){
+    # get the point map with the same name
+    map_pnt <- RequireMap(gsub(".map", ".pnt", map_x, fixed = TRUE))
 
-  xy <- map_pnt@coords[idx,, drop=FALSE]
+    xy <- map_pnt@coords[idx, , drop = FALSE]
+
+  } else {
+    # user defined map, extract midpoints from sp object
+    xy <- SetNames(t(sapply(map@polygons, slot, "labpt")),
+                   colnames=c("coords.x1","coords.x2"))[idx, , drop = FALSE]
+  }
 
   if(!is.null(labels)){
     if(identical(labels, TRUE))
@@ -358,6 +371,32 @@ PlotMSRe <- function(id=NULL, col=NA, pbg="white", main="", border="grey", lwd=1
              labels=labels,
              tmtxt=tmtxt, add=add, ...)
 }
+
+
+
+PlotPremReg <- function (id = NULL, col = NA, pbg = "white", main = "", border = "grey",
+                         lwd = 1, col.vf = NA, border.vf = NA, labels = NULL, tmtxt = TRUE,
+                         add = FALSE, ...) {
+
+  # create premium regions map
+  d.bfsrg$preg_x <- paste0(d.bfsrg$kt_x, d.bfsrg$preg_c)
+
+  # define premium regions based on d.bfsrg
+  preg.map <- as(CombinePolg(id=d.bfsrg$gem_id, g=d.bfsrg$preg_x),
+                 "SpatialPolygonsDataFrame")
+
+  # update metadata
+  preg.map@data <- data.frame(id=1:length(preg <- sapply(preg.map@polygons, slot, "ID")),
+                              name=preg, ID2=preg)
+
+  xy <- PlotMap(map_x = preg.map, id = id, col = col, pbg = pbg,
+                main = main, vf = FALSE, border = border, lwd = lwd,
+                tmtxt = tmtxt, add = add, labels = labels, ...)
+
+  invisible(xy)
+
+}
+
 
 
 

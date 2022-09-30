@@ -1,6 +1,6 @@
 
 export("AddLakes", "AddRivers", "AddWaters","BfSStamp",  "CombinePolg", "CombineKant",
-       "CombinePolygons", "Neighbours", "PlotBezk","PlotCH","PlotGreg",
+       "CombinePolygons", "Neighbours", "PlotBezk","PlotCH","PlotGreg", "PlotPremReg",
        "PlotKant", "PlotBezk", "PlotMSRe","PlotMapDot","PlotPolg",
        "SwissLocator", "RequireMap", "LoadMap", "tkart","RemoveHoles","DownloadBfSMaps")
 

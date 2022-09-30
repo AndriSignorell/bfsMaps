@@ -49,18 +49,11 @@
     \item{\code{sprgeb_c}}{a numeric vector}
     \item{\code{sprgeb_x}}{a factor with levels \code{d} \code{f} \code{i} \code{r}}
 
-    \item{\code{msre_c}}{a numeric vector}
-    \item{\code{msre_x}}{a factor with levels \code{Zuerich  } \code{Glattal-Furttal } \code{Limmattal} \code{Knonaueramt } \code{Zimmerberg  } }
-
-    \item{\code{msre_typ_c}}{a numeric vector}
-    \item{\code{msre_typ_x}}{a factor with levels \code{Zuerich  } \code{Glattal-Furttal } \code{Limmattal} \code{Knonaueramt } \code{Zimmerberg  } }
-
     \item{\code{preg_c}}{a numeric vector}
   }
 }
 \examples{
 head(kt <- unique(d.bfsrg[,c("kt_c","kt_x","kt_bez_x")][order(d.bfsrg$kt_c),]))
 head(bezk <- unique(d.bfsrg[,c("bezk_c","bezk_x","kt_x")][order(d.bfsrg$bezk_c),]))
-head(msreg <- unique(d.bfsrg[,c("msre_c","msre_x","msre_typ_x")][order(d.bfsrg$msre_c),]))
 }
 \keyword{datasets}

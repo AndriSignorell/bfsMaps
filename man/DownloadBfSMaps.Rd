@@ -8,7 +8,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-DownloadBfSMaps(url = "https://www.bfs.admin.ch/bfsstatic/dam/assets/11927607/master",
+DownloadBfSMaps(url = "https://dam-api.bfs.admin.ch/hub/api/dam/assets/21245514/master",
                 path = paste0(path.expand("~"), "/MapData"))
 }
 %- maybe also 'usage' for other objects documented here.

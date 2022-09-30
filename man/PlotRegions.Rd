@@ -4,6 +4,7 @@
 \alias{PlotPolg}
 \alias{PlotBezk}
 \alias{PlotMSRe}
+\alias{PlotPremReg}
 
 % \encoding{latin1}
 \encoding{UTF-8}
@@ -37,6 +38,9 @@ PlotPolg(id = NULL, col = NA, pbg = "white", main = "",
          border = "grey", lwd = 1, col.vf = NA, border.vf = NA, labels = NULL,
          tmtxt = TRUE, add = FALSE, map_x = "polg.map", ...)
 
+PlotPremReg(id = NULL, col = NA, pbg = "white", main = "",
+            border = "grey", lwd = 1, col.vf = NA, border.vf = NA, labels = NULL,
+            tmtxt = TRUE, add = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 % Note: \code{NAs} are recoded as \code{"white"}.
@@ -217,6 +221,22 @@ PlotPolg(id=1:10,
 # plot all communities
 PlotPolg(id=tkart$polg.map@data$ID0, col=rainbow(nrow(tkart$polg.map@data)),
          main="Political communities in CH")
+
+# plot all premium regions
+# find all regions
+d.bfsrg$preg_x <- paste0(d.bfsrg$kt_x, d.bfsrg$preg_c)
+preg <- unique(d.bfsrg$preg_x)
+
+cols <- c("white","darkolivegreen3", "darkolivegreen2", "darkolivegreen1")
+
+PlotPremReg(preg, cols[ZeroIfNA(StrVal(preg, as.numeric = T))+1], labels =NA)
+PlotKant(add=TRUE, border="grey55")
+AddLakes()
+
+# plot some premium regions
+PlotPremReg(c("ZH1", "GR2"), c("blue", "yellow"), labels=TRUE)
+PlotKant(add=TRUE, border="grey55")
+AddLakes()
 
 })}
 \keyword{ hplot }

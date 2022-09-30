@@ -40,7 +40,7 @@ Swiss Federal Office of Statistics - Spatial divisions: \url{https://www.agvchap
 
 Official directory of towns and cities (PLZ): \url{https://www.cadastre.ch/de/services/service/registry/plz.html}
 
-Swiss Premium Regions: \url{https://www.priminfo.admin.ch/de/regionen}
+Swiss Premium Regions: \url{https://www.priminfo.admin.ch/}
 }
 
 \keyword{ package }

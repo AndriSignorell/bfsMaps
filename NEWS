@@ -1,6 +1,20 @@
 
 
 
+bfsMaps 0.9.9 (2022-10-29)
+-----------------------------
+
+NEW FUNCTIONS ADDED:
+  * PlotPremReg() can be used to plot Swiss premium regions.
+
+UPDATED FUNCTIONS:
+  *
+
+BUGFIXES:
+  *
+
+
+
 bfsMaps 0.9.8 (2022-09-29)
 -----------------------------
 
