@@ -248,7 +248,7 @@ PlotMap <- function(map_x, id=NULL, col=NA, pbg="white", main="",
                    colnames=c("coords.x1","coords.x2"))[idx, , drop = FALSE]
   }
 
-  if(!is.null(labels)){
+  if(!is.null(labels) && !identical(labels, FALSE)){
     if(identical(labels, TRUE))
       labels <- id
     text(x = xy[,1], y = xy[,2], labels = labels)
@@ -378,16 +378,9 @@ PlotPremReg <- function (id = NULL, col = NA, pbg = "white", main = "", border =
                          lwd = 1, col.vf = NA, border.vf = NA, labels = NULL, tmtxt = TRUE,
                          add = FALSE, ...) {
 
-  # create premium regions map
-  d.bfsrg$preg_x <- paste0(d.bfsrg$kt_x, d.bfsrg$preg_c)
 
   # define premium regions based on d.bfsrg
-  preg.map <- as(CombinePolg(id=d.bfsrg$gem_id, g=d.bfsrg$preg_x),
-                 "SpatialPolygonsDataFrame")
-
-  # update metadata
-  preg.map@data <- data.frame(id=1:length(preg <- sapply(preg.map@polygons, slot, "ID")),
-                              name=preg, ID2=preg)
+  preg.map <- CombinePolg(id=d.bfsrg$gem_id, g=d.bfsrg$preg_x)
 
   xy <- PlotMap(map_x = preg.map, id = id, col = col, pbg = pbg,
                 main = main, vf = FALSE, border = border, lwd = lwd,

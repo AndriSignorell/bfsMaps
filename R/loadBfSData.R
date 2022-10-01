@@ -1,12 +1,13 @@
+
+# # x_ <- grep("_x", colnames(d.bfsrg), v=T)
+# # sapply(d.bfsrg[, x_], unique)
+# #
+# # for(x in grep("_x", colnames(d.bfsrg), v=T)){
+# #   d.bfsrg[,x] <- iconv(d.bfsrg[,x], to="UTF-8")
+# # }
+# # Load Raumregionen
+# # https://www.agvchapp.bfs.admin.ch/de/typologies/query
 #
-# x_ <- grep("_x", colnames(d.bfsrg), v=T)
-# sapply(d.bfsrg[, x_], unique)
-#
-# for(x in grep("_x", colnames(d.bfsrg), v=T)){
-#   d.bfsrg[,x] <- iconv(d.bfsrg[,x], to="UTF-8")
-# }
-# Load Raumregionen
-# https://www.agvchapp.bfs.admin.ch/de/typologies/query
 # library(DescTools)
 #
 # fn <- "C:/Users/andri/Documents/MapData/2022_GEOM_TK/Raumgliederungen22.xlsx"
@@ -43,13 +44,20 @@
 #
 # attr(d.bfsrg, "call") <- NULL
 #
+# d.bfsrg$gemeinde_x <- factor(d.bfsrg$gemeinde_x,
+#                              levels = Sort(unique(d.bfsrg[, c("gem_id","gemeinde_x")]))[,2])
+#
 # d.bfsrg$kt_bez_x <- factor(d.bfsrg$kt_x, levels=Sort(unique(d.bfsrg[,c("kt_c","kt_x")]))[,2])
 # levels(d.bfsrg$kt_bez_x) <- c("Zürich","Bern","Luzern","Uri","Schwyz","Obwalden","Nidwalden","Glarus",
 #                               "Zug","Fribourg","Solothurn","Basel-Stadt","Basel-Landschaft","Schaffhausen",
 #                               "Appenzell Ausserrhoden","Appenzell Innerrhoden","St. Gallen","Graubünden",
 #                               "Aargau","Thurgau","Ticino","Vaud","Wallis","Neuchâtel","Genève","Jura")
 #
+# d.bfsrg$kt_x <- factor(d.bfsrg$kt_x,
+#                        levels=Sort(unique(d.bfsrg[,c("kt_c","kt_x")]))[,2])
 #
+# d.bfsrg$bezk_x <- factor(d.bfsrg$bezk_x,
+#                        levels=Sort(unique(d.bfsrg[,c("bezk_c","bezk_x")]))[,2])
 #
 # d.bfsrg <- d.bfsrg[,c("gem_id","gemeinde_x","kt_c","kt_x","kt_bez_x","bezk_c","bezk_x",
 #                    "greg_c","greg_x","aggl_c","aggl_x","aggl_grp_c","aggl_grp_x","stadt_char_c","stadt_char_x",
@@ -60,9 +68,8 @@
 #
 # # ,"msre_c","msre_x","msre_typ_c","msre_typ_x"
 #
-# d.bfsrg$greg_x
-#
-# table(d.bfsrg$greg_c, d.bfsrg$greg_x)
+# # d.bfsrg$greg_x
+# # table(d.bfsrg$greg_c, d.bfsrg$greg_x)
 #
 #
 # # d.bfsrg$msre_c
@@ -78,6 +85,7 @@
 # d.preg <- unique(as.data.frame(readxl::read_xlsx(path = fn, sheet = "A_COM", skip = 5))[, c(1,4)])
 # colnames(d.preg) <- c("gem_id", "preg_c")
 #
+#
 # # expectec: 0 rows
 # d.preg[AllDuplicated(d.preg$gem_id), ]
 #
@@ -87,6 +95,11 @@
 # d.bfsrg[d.bfsrg$gem_id == 4324, "preg_c"] <- 0
 # d.bfsrg[d.bfsrg$gem_id == 5239, "preg_c"] <- 3
 # d.bfsrg[d.bfsrg$gem_id == 5892, "preg_c"] <- 3
+#
+# d.bfsrg$preg_x <- paste0(d.bfsrg$kt_x, d.bfsrg$preg_c)
+# d.bfsrg$preg_x <- factor(paste0(d.bfsrg$kt_x, d.bfsrg$preg_c),
+#                          levels = Sort(unique(d.bfsrg[, c("kt_c","preg_c","preg_x")]))$preg_x)
+#
 #
 # Abstract(d.bfsrg)
 #
@@ -100,7 +113,6 @@
 #
 # PlotPol
 #
-# d.bfsrg$preg_x <- paste0(d.bfsrg$kt_x, d.bfsrg$preg_c)
 # preg <- unique(d.bfsrg$preg_x)
 #
 # cols <- c("white","darkolivegreen3", "darkolivegreen2", "darkolivegreen1")
@@ -122,12 +134,7 @@
 #
 # # fertig lustig...!
 #
-
-
-
-
-
-
+#
 
 
 

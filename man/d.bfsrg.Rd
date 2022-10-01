@@ -6,15 +6,17 @@
 \title{Swiss Federal Statistical Office (SFSO) Spatial Divisions
 %%   ~~ data name/kind ... ~~
 }
-\description{The Swiss Federal Statistical Office (SFSO) produces, publishes and maintains various spatial divisions for Switzerland. A dataset for the year 2020 is part of the package.
+\description{The Swiss Federal Statistical Office (SFSO) produces, publishes and maintains various spatial divisions for Switzerland. A dataset for the year 2022 is part of the package.
+
+Granularity is the community level.
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
 }
 \usage{data("d.bfsrg")}
 \format{
-  A data frame with 2202 observations on the following 29 variables.
+  A data frame with 2148 observations on the following 27 variables.
   \describe{
     \item{\code{gem_id}}{community id, a numeric vector}
-    \item{\code{gemeinde_x}}{community name, character vector}
+    \item{\code{gemeinde_x}}{community name, factor with the names of the communities as levels (to ensure the correct order, if needed).}
 
     \item{\code{kt_c}}{canton id, numeric vector}
     \item{\code{kt_x}}{canton abbreviation, a factor with levels \code{ZH} \code{BE} \code{LU} \code{UR} \code{SZ} \code{OW} \code{NW} \code{GL} \code{ZG} \code{FR} \code{SO} \code{BS} \code{BL} \code{SH} \code{AR} \code{AI} \code{SG} \code{GR} \code{AG} \code{TG} \code{TI} \code{VD} \code{VS} \code{NE} \code{GE} \code{JU}}
@@ -49,7 +51,8 @@
     \item{\code{sprgeb_c}}{a numeric vector}
     \item{\code{sprgeb_x}}{a factor with levels \code{d} \code{f} \code{i} \code{r}}
 
-    \item{\code{preg_c}}{a numeric vector}
+    \item{\code{preg_c}}{a numeric vector containing the category of the premium region (0:3).}
+    \item{\code{preg_c}}{a factor with levels \code{ZH1, ZH2, ZH3, BE1, BE2, ...}}
   }
 }
 \examples{

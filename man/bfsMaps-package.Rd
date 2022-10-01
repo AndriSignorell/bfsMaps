@@ -103,7 +103,7 @@ legend(x="topleft", legend=c("german", "french","italian","romanche"), bg="white
 
 
 # Swiss premiumregions demonstrating combinations of polygons
-PlotCH(col="white", main="Premiumregion CH")
+PlotCH(col="white", main="Premiumregions CH")
 
 plot(CombinePolg(id=d.bfsrg$gem_id, g=d.bfsrg$preg_c),
      col=c("white","olivedrab4","olivedrab3","olivedrab2"), add=TRUE)
@@ -117,7 +117,7 @@ AddLakes()
 # Cities
 cols <- as.vector(sapply(c(hred, hblue, hyellow),
                          SetAlpha, alpha=c(1, 0.7, 0.5)))
-Mar(right=20)
+old <- Mar(right=20)
 PlotPolg(id=d.bfsrg$gem_id, col=cols[as.numeric(d.bfsrg$gem_typ9_x)],
          border="grey70")
 AddLakes(col="grey90", border="grey50")
@@ -126,6 +126,7 @@ legend(x=2854724, y=1292274, fill=cols, border=NA, box.col=NA,
        y.intersp=c(1,1,1, 1.1,1.05,1.05, 1.1,1.07,1.07),
        legend=StrTrunc(levels(d.bfsrg$gem_typ9_x), 50),
        xjust=0, yjust=1, cex=0.8, xpd=NA)
+par(mar=old)
 
 
 # Degree of urbanisation
@@ -173,7 +174,7 @@ RequireMap("metr.map")   # require other map
 plot(tkart$metr.map, add=TRUE, border="grey60",
      col=cols)
 AddLakes(col="grey90", border="grey70")
-legend( x="topleft", legend=c("Laendliche Gemeinde", tkart$metr.map@data$name),
+legend( x="topleft", legend=c("Ländliche Gemeinde", tkart$metr.map@data$name),
         fill=c("darkolivegreen1", cols),
         bg="white", cex=0.8, xpd=TRUE )
 

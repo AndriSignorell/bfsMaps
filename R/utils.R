@@ -86,8 +86,13 @@ CombinePolygons <- function(map, g){
   # map containing the regions to be combined
   # grp the vector of the same length containing the groups
 
-  unionSpatialPolygons(SpatialPolygons(unlist(slot(map, "polygons"))), g)
+  map <- as(unionSpatialPolygons(SpatialPolygons(unlist(slot(map, "polygons"))), g),
+     "SpatialPolygonsDataFrame")
 
+  # update metadata
+  map@data <- data.frame(id=1:length(ID <- sapply(map@polygons, slot, "ID")),
+                              name=ID, ID2=ID)
+  return(map)
 }
 
 
