@@ -4,7 +4,6 @@
 \alias{PlotPolg}
 \alias{PlotBezk}
 \alias{PlotMSRe}
-\alias{PlotPremReg}
 
 % \encoding{latin1}
 \encoding{UTF-8}
@@ -33,14 +32,9 @@ PlotBezk(id = NULL, col = NA, pbg = "white", main = "",
          border = "grey", lwd = 1, col.vf = NA, border.vf = NA, labels = NULL,
          tmtxt = TRUE, add = FALSE, map_x = "bezk.map", ...)
 
-
 PlotPolg(id = NULL, col = NA, pbg = "white", main = "",
          border = "grey", lwd = 1, col.vf = NA, border.vf = NA, labels = NULL,
          tmtxt = TRUE, add = FALSE, map_x = "polg.map", ...)
-
-PlotPremReg(id = NULL, col = NA, pbg = "white", main = "",
-            border = "grey", lwd = 1, col.vf = NA, border.vf = NA, labels = NULL,
-            tmtxt = TRUE, add = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 % Note: \code{NAs} are recoded as \code{"white"}.
@@ -113,12 +107,12 @@ The list of all political communities is given in \code{d.bfsrg}:\cr
 
 All the regions can also be accessd and plotted by manually loading the maps and use the generic \code{plot} function.
 \preformatted{
-cant <- RequireMap("kant.map")
+cant <- GetMap("kant.map")
 plot(cant)
 }
 
 
-There are also dedicated maps for all regions, which contain only the coordinates of the regions' centroids. They can be accessed using according mapname with the extension \code{.pnt}, e.g. for the cantons \code{RequireMap("kant.pnt")}.
+There are also dedicated maps for all regions, which contain only the coordinates of the regions' centroids. They can be accessed using according mapname with the extension \code{.pnt}, e.g. for the cantons \code{GetMap("kant.pnt")}.
 
 To simplify the description, the function returns the center coordinates. These can then be used with the function \code{text()}.
 }
@@ -166,20 +160,17 @@ PlotGreg(id = c(2,4,7), col = c("bisque","darkolivegreen1","khaki"),
          main="Espace Mittelland, Zurich und Ticino")
 AddLakes(col="grey90", border="darkgrey")
 
-text(tkart$greg.pnt@coords[c(2,4,7),1], tkart$greg.pnt@coords[c(2,4,7),2],
-     tkart$greg.pnt@data[c(2,4,7),"ID1"], col="black")
-
-# access the meta data
-tkart$greg.map@data[,1:2]
+xy <- sf::st_coordinates((greg.pnt <- GetMap("greg.pnt"))$geometry[c(2,4,7)])
+text(xy[,1], xy[,2], greg.pnt$name[c(2,4,7)], col="black")
 
 
 # plot the districts
-RequireMap("bezk.map")
-head(tkart$bezk.map@data)
+bezk.map <- GetMap("bezk.map")
+head(bezk.map)
 
 PlotBezk(id=311:316, col=colorRampPalette(c("red", "white", "blue"), space = "rgb")(5))
 
-PlotBezk(bezk=tkart$bezk.map@data$ID0, col=rainbow(147), main="Districts in CH")
+PlotBezk(id=bezk.map[[1]], col=rainbow(147), main="Districts in CH")
 
 cols <- c(y=rgb(255,247,174,max=255), o=rgb(251,208,124,max=255),
           v=rgb(228,201,224,max=255), b=rgb(211,230,246,max=255),
@@ -187,56 +178,38 @@ cols <- c(y=rgb(255,247,174,max=255), o=rgb(251,208,124,max=255),
           p=rgb(255,248,236,max=255))
 
 # display MS regions
-RequireMap(c("msre.map", "msre.pnt"))
 # start with a cantons map
-PlotKant(col=cols[c("g","g","o","r","v","b","y","g","y","o",
+
+# start with a cantons map
+PlotKant(1:26,col=cols[c("g","g","o","r","v","b","y","g","y","o",
                     "v","o","y","v","y","v","o","y","r","b",
                     "v","y","b","r","v","b")],
          border="grey20", lwd=1, pbg=cols["p"],
          main="106 MS-Regions")
 
 # add the MS regions borders
-plot(tkart$msre.map, add=TRUE, border="grey60")
+xy <- PlotMSRe(add=TRUE, border="grey60")
 
 # reoutline the cantons, as they have been overplotted in the step before
-plot(tkart$kant.map, add=TRUE, border="grey30")
+PlotKant(1:26, add=TRUE, border="grey30", lwd=1)
+
 # add the waters
 AddLakes(1:2, col=rgb(235, 247, 253, max=255), border=rgb(0,166,235, max=255))
 AddRivers(1:5, col=rgb(0, 166, 235, max=255))
 
 # ... and finally add labels
-text(x=tkart$msre.pnt@coords[,1], y=tkart$msre.pnt@coords[,2],
-     tkart$msre.pnt@data$ID0, cex=0.6)
+text(x=xy$x, y=xy$y, GetMap("msre.map")$id, cex=0.6)
 
 
 # plot political communities
-RequireMap("polg.map")
-tkart$polg.map@data
-nrow(tkart$polg.map@data)
 
 # plot only the first 10 elements
 PlotPolg(id=1:10,
          col=colorRampPalette(c("red", "white", "blue"), space = "rgb")(10))
 
 # plot all communities
-PlotPolg(id=tkart$polg.map@data$ID0, col=rainbow(nrow(tkart$polg.map@data)),
+PlotPolg(id=(map <- GetMap("polg.map"))$id, col=rainbow(nrow(map)),
          main="Political communities in CH")
-
-# plot all premium regions
-# find all regions
-d.bfsrg$preg_x <- paste0(d.bfsrg$kt_x, d.bfsrg$preg_c)
-preg <- unique(d.bfsrg$preg_x)
-
-cols <- c("white","darkolivegreen3", "darkolivegreen2", "darkolivegreen1")
-
-PlotPremReg(preg, cols[ZeroIfNA(StrVal(preg, as.numeric = T))+1], labels =NA)
-PlotKant(add=TRUE, border="grey55")
-AddLakes()
-
-# plot some premium regions
-PlotPremReg(c("ZH1", "GR2"), c("blue", "yellow"), labels=TRUE)
-PlotKant(add=TRUE, border="grey55")
-AddLakes()
 
 })}
 \keyword{ hplot }

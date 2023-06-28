@@ -82,7 +82,8 @@ AddLakes()
 AddRivers()
 
 # Cantonal capitals
-points(RequireMap("stkt.pnt")@coords, pch=21, col="grey", bg="red")
+points(sf::st_coordinates(GetMap("stkt.pnt")$geometry),
+       pch=21, col="grey", bg="red")
 
 
 # Display vegetational area
@@ -136,24 +137,21 @@ PlotKant(add=TRUE, border="grey30")
 AddLakes(col = "grey90", border = "grey50")
 
 
-# Pick data out of shape files slots (here: cantons' area)
-acant <- sapply( slot(tkart$kant.map, "polygons"), function(x) slot(x, "area"))
+# get cantons' area
+area <- sf::st_area(GetMap("kant.map")) / 1E6
 
 # plot cantons
 xy <- PlotKant(col=colorRampPalette(c("white", "steelblue"),
-                                    space = "rgb")(720)[trunc(acant /10000000)],
+                                    space = "rgb")(720)[trunc(area)/10],
                main=expression(paste( "Cantons' area in ", km^2)) )
 AddLakes(col="grey90", border="grey60")
-text(xy, labels=round(acant/1E6,1), cex=0.7)
+text(xy, labels=round(area,1), cex=0.7)
 
 
-# Plot single cantons
-kant.gr <- slot(tkart$kant.map,"polygons")[[18]]@Polygons[[1]]@coords
+kant.gr <- GetMap("kant.map") |> (\(.) .[.$name=="Graubünden", "geometry"])()
 # prepare plot
-plot(kant.gr, asp=1, axes=FALSE, frame.plot=FALSE, xlab="", ylab="",
-     main="Beautiful Grisons", type="n",
-     xlim=c(2671494, 2862205), ylim=c(1108314, 1219629))
-polygon(kant.gr, col="steelblue", lwd=2 )
+plot(kant.gr, asp=1, axes=FALSE, xlab="", ylab="",
+     main="Beautiful Grisons", col="steelblue", lwd=2)
 
 loctext <- function(x, y, text){
   points(x, y, pch=15, col="lightgrey" )
@@ -170,19 +168,22 @@ loctext(2714275, 1175027,"  Rabius")
 cols <- c("royalblue1","red","bisque3","yellow","orange","beige")
 # we have to prepare the background here, for some reasons...
 PlotCH(col="darkolivegreen1", border="grey", lwd=2, main="Swiss metropolitan areas")
-RequireMap("metr.map")   # require other map
-plot(tkart$metr.map, add=TRUE, border="grey60",
-     col=cols)
+# require other map
+metr.map <- GetMap("metr.map")
+plot(metr.map$geometry, add=TRUE, border="grey60", col=cols)
 AddLakes(col="grey90", border="grey70")
-legend( x="topleft", legend=c("Ländliche Gemeinde", tkart$metr.map@data$name),
+legend( x="topleft", legend=c("Ländliche Gemeinde", metr.map$name),
         fill=c("darkolivegreen1", cols),
         bg="white", cex=0.8, xpd=TRUE )
 
 
 # We can find the neighbor cantons, here for the canton Glarus (id=8)
-nbs <- Neighbours(map=tkart$kant.map, id=8)[[1]]
+nbs <- Neighbours(map=GetMap("kant.map"), id=8)
 PlotKant(id = c(8, nbs), col=c("steelblue", rep("grey80", length(nbs))),
          main="Find Neighbours")
+
+
+
 })}
 
 

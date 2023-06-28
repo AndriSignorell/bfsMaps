@@ -52,8 +52,8 @@ Rivers are defined in the files:
 \item 00_TOPO/K4_flusyyyymmdd/c_shp/k4flusyyyymmdd55_ch2007.shp
 }
 For accessing the meta data, we can simply use\cr
-\preformatted{  RequireMap("see1.map")
-  head(tkart$see1.map@data)
+\preformatted{  lake <- GetMap("see1.map")
+  head(lake)
 }
 }
 \value{None}

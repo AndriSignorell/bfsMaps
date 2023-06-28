@@ -11,8 +11,8 @@
 \usage{
 CombinePolygons(map, g)
 
-CombineKant(id, g, map = RequireMap("kant.map"))
-CombinePolg(id, g, map = RequireMap("polg.map"))
+CombineKant(id, g, map = GetMap("kant.map"))
+CombinePolg(id, g, map = GetMap("polg.map"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -29,7 +29,7 @@ CombinePolg(id, g, map = RequireMap("polg.map"))
 \author{Juerg Guggenbuehl, Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~
 }
-\seealso{\code{\link{unionSpatialPolygons}}
+\seealso{\code{\link{st_union}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{

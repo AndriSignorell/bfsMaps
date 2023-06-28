@@ -1,16 +1,15 @@
 Package: bfsMaps
 Type: Package
 Title: Plot Maps from Switzerland by Swiss Federal Statistical Office
-Version: 0.9.10
-Date: 2022-10-29
+Version: 1.99.1
+Date: 2023-04-30
 Authors@R: c(
   person("Andri", "Signorell", email = "andri@signorell.net", role = c("aut", "cre")),
-  person("Juerg", "Guggenbuehl", role = c("ctb")),
-  person("Jeffery S.", "Evans", role = c("ctb")))
-Description: At the Swiss Federal Statistical Office (SFSO), spatial maps of Switzerland are available free of charge as 'Cartographic bases for small-scale thematic mapping'. This package contains convenience functions to import ESRI (Environmental Systems Research Institute) shape files using the package 'rgdal' and to plot them easily and quickly without having to worry too much about the technical details.
+  person("Juerg", "Guggenbuehl", role = c("ctb")))
+Description: At the Swiss Federal Statistical Office (SFSO), spatial maps of Switzerland are available free of charge as 'Cartographic bases for small-scale thematic mapping'. This package contains convenience functions to import ESRI (Environmental Systems Research Institute) shape files using the package 'sf' and to plot them easily and quickly without having to worry too much about the technical details.
       It contains utilities to combine multiple areas to one single polygon and to find neighbours for single regions. For any point on a map, a special locator can be used to determine to which municipality, district or canton it belongs.
-Depends: base, stats, R (>= 4.0.0), sp, DescTools
-Imports: graphics, grDevices, spdep, maptools, rgdal, rlang, methods, rgeos
+Depends: base, stats, R (>= 4.0.0), DescTools
+Imports: graphics, grDevices, sf
 Suggests: R.rsp 
 License: GPL (>= 2)
 LazyLoad: yes
@@ -20,6 +19,3 @@ BugReports: https://github.com/AndriSignorell/bfsMaps/issues
 RoxygenNote: 6.1.1
 Encoding:UTF-8
 VignetteBuilder: R.rsp
-
-
-

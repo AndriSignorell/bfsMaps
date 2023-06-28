@@ -8,6 +8,7 @@ BfSStamp <- function(xy = NULL, year_n = getOption("bfsMaps.year", Year(Today())
 
   if(is.null(xy)){
     xy = list(x=2835000, y = 1075000)
+
   } else if(identical(xy, "bottomright")) {
     plt <- par('plt')
     usr <- par('usr')
@@ -34,42 +35,25 @@ BfSStamp <- function(xy = NULL, year_n = getOption("bfsMaps.year", Year(Today())
   # text(x = 835000, y = 75000,
   text(x = xy, labels = txt, cex=0.6, adj=c(1,0), ...)
 
-
-}
-
-
-
-
-Neighbours <- function(map, id = NULL){
-
-  nbs <- poly2nb(as(map, "SpatialPolygons"))
-  nbslist <- nb2listw(nbs, style="W", zero.policy=TRUE)$neighbours
-  attributes(nbslist) <- NULL
-  if (!is.null(id)) {
-    # nbslist <- nbslist[[which(map@data[, 1] %in% id)]]
-    nbslist <- nbslist[match(id, map@data[, 1])]
-    nbslist <- lapply(nbslist, function(i) as.numeric(as.character(map@data[i, 1])))
-    }
-  return(nbslist)
 }
 
 
 
 SwissLocator <- function(){
-  xy.sp <- SpatialPoints(data.frame(locator()))
-  polg.map <- RequireMap("polg.map")
+
+  xy.sf <- sf::st_as_sf(data.frame(locator()), coords=c("x","y"))
+  polg.map <- GetMap("polg.map")
 
   # we must apply some kind of proj4string since 2017 ...
-  # project string is not completely set with that statement! (no to +towgs84=674...)
-  # proj4string(xy.sp) <- proj4string(polg.map)
-  xy.sp@proj4string <- polg.map@proj4string
+  sf::st_crs(xy.sf) <- sf::st_crs(polg.map)
+  xy.bfsnr <- sf::st_intersects(xy.sf, polg.map)
 
-  xy.bfsnr <- over(xy.sp, polg.map)[, 1]
+  bfs_id <- polg.map$id[unlist(xy.bfsnr)]
 
   note <- gettextf("\033[36m\nNote: ------\n  Found communities: %s.\n\n\033[39m", paste(xy.bfsnr, collapse = ", "))
   cat(note)
 
-  res <- data.frame(xy.sp, SetNames(d.bfsrg[ match(xy.bfsnr, d.bfsrg$gem_id),
+  res <- data.frame(xy.sf, SetNames(d.bfsrg[ match(bfs_id, d.bfsrg$gem_id),
                                      c("gem_id", "gemeinde_x", "bezk_x", "kt_x")],
                                     rownames=NULL))
 
@@ -81,73 +65,107 @@ SwissLocator <- function(){
 
 
 
+
+Neighbours <- function(map, id = NULL){
+
+  # nbs <- poly2nb(as(map, "SpatialPolygons"))
+  # nbslist <- nb2listw(nbs, style="W", zero.policy=TRUE)$neighbours
+  # attributes(nbslist) <- NULL
+  # if (!is.null(id)) {
+  #   # nbslist <- nbslist[[which(map@data[, 1] %in% id)]]
+  #   nbslist <- nbslist[match(id, map@data[, 1])]
+  #   nbslist <- lapply(nbslist, function(i) as.numeric(as.character(map@data[i, 1])))
+  # }
+  # return(nbslist)
+  nbslist <- list()
+  for(x in as.character(id)) {
+    found <- sf::st_is_within_distance(sf::st_geometry(map)[map$id == x], map, dist=0)[[1]]
+    nbslist[[x]] <- map[[1]][found]
+    nbslist[[x]] <- nbslist[[x]][nbslist[[x]] %nin% id]
+  }
+
+  if(length(nbslist)==1)
+    return(nbslist[[1]])
+  else
+    return(nbslist)
+
+}
+
+
+
+
 CombinePolygons <- function(map, g){
 
   # map containing the regions to be combined
   # grp the vector of the same length containing the groups
 
-  map <- as(unionSpatialPolygons(SpatialPolygons(unlist(slot(map, "polygons"))), g),
-     "SpatialPolygonsDataFrame")
+  # map <- as(unionSpatialPolygons(SpatialPolygons(unlist(slot(map, "polygons"))), g),
+  #    "SpatialPolygonsDataFrame")
+  #
+  # # update metadata
+  # map@data <- data.frame(id=1:length(ID <- sapply(map@polygons, slot, "ID")),
+  #                             name=ID, ID2=ID)
+  # return(map)
 
-  # update metadata
-  map@data <- data.frame(id=1:length(ID <- sapply(map@polygons, slot, "ID")),
-                              name=ID, ID2=ID)
-  return(map)
-}
-
-
-CombinePolg <- function(id, g, map=RequireMap("polg.map")){
-
-  d.grp <- merge(map@data, data.frame(id=id, g=g), by.x=1, by.y="id", all.x=TRUE)
-  grp <- d.grp[order(as.numeric(as.character(d.grp[, 1]))), "g"]
-
-  CombinePolygons(map, grp)
+  sf::st_union(map[map$id %in% g, ]$geometry)
 
 }
 
 
-CombineKant <- function(id, g, map=RequireMap("kant.map")){
+
+
+CombinePolg <- function(id, g, map=GetMap("polg.map")){
+
+  d.grp <- merge(map$id, data.frame(id=id, g=g), by.x=1, by.y="id", all.x=TRUE)
+
+  sf::st_sfc(sapply(sort(unique(g)),
+                    function(g) CombinePolygons(map, d.grp[d.grp$g==g,1])))
+
+}
+
+
+CombineKant <- function(id, g, map=GetMap("kant.map")){
 
   # define groups and then sort for the polynoms
-  d.grp <- merge(map@data, data.frame(id=id, g=g), by.x="id", by.y="id", all.x=TRUE)
-  grp <- d.grp[order(as.numeric(as.character(d.grp$id))), "g"]
+  d.grp <- merge(map$id, data.frame(id=id, g=g), by.x=1, by.y="id", all.x=TRUE)
 
   # the order must be the same as in the map
-  CombinePolygons(map, grp)
+  sf::st_sfc(sapply(sort(unique(g)),
+                    function(g) CombinePolygons(map, d.grp[d.grp$g==g,1])))
 
 }
 
 
-RemoveHoles <- function (x) {
-
-  if (!any(which(utils::installed.packages()[, 1] %in% "maptools")))
-    stop("please install maptools package before running this function")
-
-  xp <- slot(x, "polygons")
-
-  holes <- lapply(xp, function(x) sapply(methods::slot(x, "Polygons"),
-                                         methods::slot, "hole"))
-  res <- lapply(1:length(xp),
-                function(i) methods::slot(xp[[i]], "Polygons")[!holes[[i]]])
-
-  IDs <- row.names(x)
-
-  x.fill <- sp::SpatialPolygons(lapply(1:length(res),
-                                       function(i) sp::Polygons(res[[i]],
-                                                  ID = IDs[i])), proj4string = sp::CRS(sp::proj4string(x)))
-  methods::slot(x.fill, "polygons") <- lapply(methods::slot(x.fill, "polygons"),
-                                              maptools::checkPolygonsHoles)
-  methods::slot(x.fill, "polygons") <- lapply(methods::slot(x.fill, "polygons"),
-                                              "comment<-", NULL)
-  pids <- sapply(methods::slot(x.fill, "polygons"),
-                 function(x) methods::slot(x,"ID"))
-
-  x.fill <- sp::SpatialPolygonsDataFrame(x.fill,
-                                         data.frame(row.names = pids, ID = 1:length(pids)))
-
-  return(x.fill)
-
-}
+# RemoveHoles <- function (x) {
+#
+#   if (!any(which(utils::installed.packages()[, 1] %in% "maptools")))
+#     stop("please install maptools package before running this function")
+#
+#   xp <- slot(x, "polygons")
+#
+#   holes <- lapply(xp, function(x) sapply(methods::slot(x, "Polygons"),
+#                                          methods::slot, "hole"))
+#   res <- lapply(1:length(xp),
+#                 function(i) methods::slot(xp[[i]], "Polygons")[!holes[[i]]])
+#
+#   IDs <- row.names(x)
+#
+#   x.fill <- sp::SpatialPolygons(lapply(1:length(res),
+#                                        function(i) sp::Polygons(res[[i]],
+#                                                   ID = IDs[i])), proj4string = sp::CRS(sp::proj4string(x)))
+#   methods::slot(x.fill, "polygons") <- lapply(methods::slot(x.fill, "polygons"),
+#                                               maptools::checkPolygonsHoles)
+#   methods::slot(x.fill, "polygons") <- lapply(methods::slot(x.fill, "polygons"),
+#                                               "comment<-", NULL)
+#   pids <- sapply(methods::slot(x.fill, "polygons"),
+#                  function(x) methods::slot(x,"ID"))
+#
+#   x.fill <- sp::SpatialPolygonsDataFrame(x.fill,
+#                                          data.frame(row.names = pids, ID = 1:length(pids)))
+#
+#   return(x.fill)
+#
+# }
 
 
 
@@ -189,157 +207,4 @@ DownloadBfSMaps <- function(url="https://dam-api.bfs.admin.ch/hub/api/dam/assets
 
 }
 
-
-
-
-# with(d.bfsrg,
-#      plot(
-#        CombinePolg(bfs_nr, preg_x),
-#        col=sample(rainbow(length(preg_anz)))))
-#
-#
-# tkt <- table(d.bfsrg$kt_c, d.bfsrg$sprgeb_x)
-# grp <- levels(d.bfsrg$sprgeb_x)[apply(tkt, 1, which.max)]
-# plot(CombineKant(rownames(tkt), grp), col=c("red","blue","green"))
-
-
-# Beispiel mit HSAs machen!! ******************
-
-
-
-# # configure HSAs
-# d.hsa <- XLGetRange(file = "O:\\E\\EGW\\Intern\\Transfer_Intern_SW-EGW\\Projekte\\EOL 2\\HSA_2013_161214.xlsx",
-#                     sheet = "Tabelle1",
-#                     range = c("A1:B706"),
-#                     as.data.frame = TRUE, header = TRUE, stringsAsFactors = FALSE)
-#
-# d.medstat<- XLGetRange(file = "O:\\E\\EGW\\Intern\\Transfer_Intern_SW-EGW\\Projekte\\EOL 2\\MedStat GeoCod.xls",
-#                        sheet = "REGION=CH",
-#                        range = c("A1:G3674"),
-#                        as.data.frame = TRUE, header = TRUE, stringsAsFactors = FALSE)
-#
-# d.hsaplz <- merge(x=d.hsa, y=d.medstat, by.x="medstat", by.y="MedStat", all.x=TRUE, all.y=FALSE)
-# head(d.hsaplz)
-#
-# d.plz
-#
-# d.hsaxt <- merge(x=d.hsaplz, y=d.plz, by.x="NPA/PLZ", by.y="plz", all.x=TRUE, all.y=FALSE)
-#
-# d.hsagem <- unique(d.hsaxt[, c("hsa","bfs_nr")])
-#
-# PlotPolg(d.hsagem$bfs_nr, col=Pal("RedToBlack", 61)[as.numeric(factor(d.hsagem$hsa))])
-#
-# d.hsagem
-# levels(factor(d.hsagem$hsa))
-# polg.map
-#
-#
-#
-# bfsnr <- c(1218,1367,1631)
-# idx <- match(bfsnr, polg.map@data[, 1])
-#
-# PlotPolg(1, "black")
-# gem1 <- slot(polg.map, "polygons")[[633]]@Polygons[[1]]@coords
-# gem2 <- slot(polg.map, "polygons")[[657]]@Polygons[[1]]@coords
-# gem3 <- slot(polg.map, "polygons")[[685]]@Polygons[[1]]@coords
-# polygon(gem1, col="steelblue", lwd=2)
-# polygon(gem2, col="steelblue", lwd=2)
-# polygon(gem3, col="steelblue", lwd=2)
-#
-# unionSpatialPolygons(
-#   SpatialPolygons(list(slot(polg.map, "polygons")[[633]])),
-#   SpatialPolygons(list(slot(polg.map, "polygons")[[657]])),
-#   SpatialPolygons(list(slot(polg.map, "polygons")[[685]])),
-#   "dd")
-#
-# pol <- slot(polg.map, "polygons")[[633]]
-# class(pol)
-#
-# SpatialPolygons(list(pol))
-#
-#
-# nc1 <- readShapePoly(system.file("shapes/sids.shp", package="maptools")[1],
-#                      proj4string=CRS("+proj=longlat +datum=NAD27"))
-# class(nc1)
-#
-# nc1 <- slot(polg.map, "polygons")[c(633,657,685)]
-# class(nc1)
-#
-# SpatialPolygonsDataFrame(SpatialPolygons(nc1))
-# class(SpatialPolygons(nc1))
-#
-#
-# PlotCH()
-# PlotPolg(1:1000, col=NA,border.polg = "grey80" ,add=TRUE)
-# plot(unionSpatialPolygons(SpatialPolygons(nc1), rep(1,3)), col="steelblue", add=TRUE)
-#
-#
-#
-#
-#
-# lps <- coordinates(nc1)
-# ID <- cut(lps[,1], quantile(lps[,1]), include.lowest=TRUE)
-# reg4 <- unionSpatialPolygons(nc1, ID)
-# row.names(reg4)
-#
-#
-# summary(r.pois)
-# ch <- coef(r.pois)
-# ch <- ch[grep("hsa", names(ch))]
-#
-# PlotPolg()
-#
-# PlotPolg(d.hsagem$bfs_nr, col=Pal("RedToBlack", 61)[as.numeric(factor(d.hsagem$hsa))])
-#
-#
-# d.kk <- merge(d.hsagem, data.frame(hsa=StrRight(names(ch), -3), coef=ch), by.x="hsa", by.y="hsa")
-#
-# PlotPolg(d.kk$bfs_nr, col=FindColor(x=d.kk$coef, cols=colorRampPalette(c("white", hred))(100))
-#          , border.polg = Pal("Helsana")[5])
-# AddLakes(col = "grey80")
-# PlotPolg(d.kk$bfs_nr, col=FindColor(x=d.kk$coef, cols=colorRampPalette(c("white", hred))(100))
-#          , border.polg = NA)
-#
-#
-# col=c("palevioletred1")d.kk$coef
-#
-# sort(ch)
-#
-#
-# col
-# plot(Pal("Helsana"))
-#
-#
-# coordinates(slot(polg.map, "polygons")[1:3])
-#
-#
-# PlotCH()
-# PlotPolg(100000, col=NA, border.polg = "grey80" ,add=TRUE)
-# gemsp <- SpatialPolygons(slot(polg.map, "polygons"))
-# plot(unionSpatialPolygons(gemsp, idx$hsa), col=Pal("RedToBlack", 62), add=TRUE)
-# plot(unionSpatialPolygons(gemsp, idx$hsa), col=Pal("Helsana", alpha = 0.3), add=TRUE, lwd=1)
-#
-# AddLakes(col = "white", border = "grey50")
-#
-# length(gemsp)
-# length(idx$hsa)
-#
-# zz <- unique(idx[, c(1,6)])
-# idx[AllDuplicated(zz$Primary_ID),]
-#
-# SwissLocator()
-# id <- c(rep(1, 1500), rep(2,852))
-#
-# d.plz[d.plz$bfs_nr==1322,]
-# d.hsaplz[d.hsaplz$"NPA/PLZ" %in% d.plz[d.plz$bfs_nr==1322,"plz"],]
-#
-# d.hsagem[d.hsagem$bfs_nr %in% c(1507,1401,1322) & !is.na(d.hsagem$bfs_nr),]
-#
-# idx <- merge(polg.map@data, d.hsagem, by.x="Primary_ID", by.y="bfs_nr", all.x=TRUE, all.y=FALSE)
-# mm <- PartitionBy(idx$hsa, idx$Primary_ID, order)
-# idx <- idx[mm==1,]
-# idx <- idx[order(as.numeric(as.character(idx$Primary_ID))),]
-#
-#
-#
 

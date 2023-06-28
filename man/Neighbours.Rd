@@ -31,13 +31,11 @@ Neighbours(map, id = NULL)
 
 \examples{try( {
 
-RequireMap("kant.map")
-nbs <- Neighbours(tkart$kant.map, kt_id <- 18)[[1]]
+nbs <- Neighbours(GetMap("kant.map"), kt_id <- 18)
 PlotKant(c(kt_id, nbs), col=c("red", rep("green", length(nbs))) )
 
 # works as well for communities and for vector of ids
-RequireMap("polg.map")
-nbs <- Neighbours(tkart$polg.map, polg_id <- c(3851, 3352))
+nbs <- Neighbours(GetMap("polg.map"), polg_id <- c(3851, 3352))
 PlotPolg(c(polg_id, unlist(nbs)),
          col=c(rep("red", 2), rep("green", length(unlist(nbs)))))
 

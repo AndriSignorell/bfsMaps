@@ -1,17 +1,24 @@
 
 
 
+bfsMaps 2.0.0 (2023-04-30)
+-----------------------------
+
+UPDATED FUNCTIONS:
+  * All functions rewritten to use recommended sf package instead of
+    rgdal, rgeos and maptools.
+
+DEPRECATED:
+  * RemoveHoles() seems not to be needed anymore with the package
+    based on sf. (If not so, refer to the previous version)
+
+
+
 bfsMaps 0.9.9 (2022-10-29)
 -----------------------------
 
 NEW FUNCTIONS ADDED:
   * PlotPremReg() can be used to plot Swiss premium regions.
-
-UPDATED FUNCTIONS:
-  *
-
-BUGFIXES:
-  *
 
 
 
@@ -20,7 +27,6 @@ bfsMaps 0.9.8 (2022-09-29)
 
 BUGFIXES:
   * UTF-8 Encoding for d.bfsrg still had not been set correctly.
-
 
 
 

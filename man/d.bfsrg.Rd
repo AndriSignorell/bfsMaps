@@ -52,7 +52,7 @@ Granularity is the community level.
     \item{\code{sprgeb_x}}{a factor with levels \code{d} \code{f} \code{i} \code{r}}
 
     \item{\code{preg_c}}{a numeric vector containing the category of the premium region (0:3).}
-    \item{\code{preg_c}}{a factor with levels \code{ZH1, ZH2, ZH3, BE1, BE2, ...}}
+    \item{\code{preg_x}}{a factor with levels \code{ZH1, ZH2, ZH3, BE1, BE2, ...}}
   }
 }
 \examples{

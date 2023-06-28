@@ -2,20 +2,14 @@
 export("AddLakes", "AddRivers", "AddWaters","BfSStamp",  "CombinePolg", "CombineKant",
        "CombinePolygons", "Neighbours", "PlotBezk","PlotCH","PlotGreg", "PlotPremReg",
        "PlotKant", "PlotBezk", "PlotMSRe","PlotMapDot","PlotPolg",
-       "SwissLocator", "RequireMap", "LoadMap", "tkart","RemoveHoles","DownloadBfSMaps")
+       "SwissLocator", "GetMap", "tkart","DownloadBfSMaps")
 
 
 importFrom("grDevices", "xy.coords")
 importFrom("graphics", "layout", "legend", "locator", "par", "plot", "text",
            "title", "strheight", "strwidth")
-importFrom("utils", "packageVersion", "globalVariables","read.csv", "tail", "download.file", "unzip")
-importFrom("DescTools", "Coalesce", "BlankIfNA", "Recycle", "Mar", "Pal", "SetNames", "InDots", "ColToOpaque", "SetAlpha", "Year", "Today")
-importFrom("spdep", "nb2listw", "poly2nb")
-importFrom("maptools", "unionSpatialPolygons")
-importFrom("rlang", "env_poke")
-importFrom("rgeos", "gLength", "readWKT")
-importFrom("rgdal","readOGR")
-importFrom("methods", "as", "slot")
-importFrom("utils", "View")
-importFrom("sp","SpatialPolygons","SpatialPoints","over", "proj4string", "proj4string<-", "plot")
+importFrom("utils", "packageVersion", "globalVariables","read.csv", "tail", "download.file", "unzip", "View")
+importFrom("DescTools", "Coalesce", "BlankIfNA", "Recycle", "Mar", "Pal", "SetNames", "InDots", "ColToOpaque", "SetAlpha", "Year", "Today", "%nin%")
 
+importFrom("sf", "st_crs", "st_as_sf", "st_read")
+importFrom("stats", "aggregate")
