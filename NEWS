@@ -5,7 +5,7 @@ bfsMaps 2.0.0 (2023-04-30)
 -----------------------------
 
 UPDATED FUNCTIONS:
-  * All functions rewritten to use recommended sf package instead of
+  * All functions have been rewritten to use recommended sf package instead of
     rgdal, rgeos and maptools.
 
 DEPRECATED:

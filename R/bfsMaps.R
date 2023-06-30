@@ -64,15 +64,30 @@ AddWaters <- function(lakes=1, rivers=1:5, col=NULL,
 
   AddRivers(categ=rivers, col=border, lwd=lwd, ...)
   AddLakes(categ=lakes, col=col, border=border, lwd=lwd, ...)
+
 }
 
 
 
+ToSwissCRS <- function(x, crs=2056, ...){
+
+  # EPSG:2056 (CH1903+/LV95)
+  # Kartesische 2D-Koordinaten für die Schweiz (Militärkoordinatensystem). Erwähnt in der CH-Norm eCH-0056.
+
+  sf::st_transform(x,  crs = 2056, ...)
+
+  # alternative:
+  # st_crs(point.map) <- st_crs(GetMap("kant.map"))
+
+}
+
+
 GetMap <- function(name_x,
                    basedir = getOption("bfsMaps.base",
-                                       default = file.path(find.package("bfsMaps"), "extdata"))) {
+                                       default = file.path(find.package("bfsMaps"), "extdata")),
+                   crs = 2056) {
 
-  LoadMap <- function(name_x, basedir) {
+  LoadMap <- function(name_x, basedir, crs = 2056) {
 
     if(getOption("debug", default = FALSE))
       cat(gettextf("Used basedir: %s\n", basedir))
@@ -88,6 +103,9 @@ GetMap <- function(name_x,
     # stop if file was not found neither in basedir nor in extdata
     if(!file.exists(fn))
       stop(gettextf("Maps information file could not be found as %s. \nCheck location!", fn))
+
+    if(getOption("debug", default = FALSE))
+      cat(gettextf("Using maps info file from: %s\n", fn))
 
     maps <- read.csv(file = fn, header = TRUE, sep=";", stringsAsFactors = FALSE)
 
@@ -115,19 +133,23 @@ GetMap <- function(name_x,
     if(!file.exists(fn))
       stop(gettextf("Map file could not be found as:  %s \n", fn))
 
-    opt <- options(stringsAsFactors = FALSE,
-                   rgdal_show_exportToProj4_warnings="none")
-    # do not display these warnings
-    # https://cran.r-project.org/web/packages/rgdal/vignettes/PROJ6_GDAL3.html
+    opt <- options(stringsAsFactors = FALSE)
     on.exit(options(opt))
 
     map <- sf::st_read(fn, quiet = TRUE)
-
+    # order along id (or first column?)
+    # map <- map[order(map$id), ]
+    map <- map[order(map[[1]]), ]
 
     if(name_x %in% c("kant.map", "kantvf.map") ){
       map$idx <- c("ZH","BE","LU","UR","SZ","OW","NW","GL","ZG","FR","SO","BS","BL","SH",
                    "AR","AI","SG","GR","AG","TG","TI","VD","VS","NE","GE","JU")
     }
+
+    if(!is.na(crs))
+      # set to swiss crs, as not all maps have the same CRS.... :-(
+      if(!st_crs(map)$input == "CH1903+ / LV95")
+        map <- ToSwissCRS(map)
 
     return(map)
 

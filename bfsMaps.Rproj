@@ -7,7 +7,7 @@ AlwaysSaveHistory: Default
 EnableCodeIndexing: Yes
 UseSpacesForTab: Yes
 NumSpacesForTab: 2
-Encoding: ISO8859-1
+Encoding: UTF-8
 
 RnwWeave: Sweave
 LaTeX: pdfLaTeX
@@ -17,5 +17,6 @@ StripTrailingWhitespace: Yes
 
 BuildType: Package
 PackageUseDevtools: Yes
+PackagePath: P:\My Documents\R-Library\bfsMaps
 PackageInstallArgs: --no-multiarch --with-keep.source
 PackageCheckArgs: --as-cran

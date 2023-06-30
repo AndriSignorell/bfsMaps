@@ -7,29 +7,22 @@
 \title{Plotting Switzerland Maps from the Swiss Federal Statistical Office (SFSO)
 }
 \description{
-This package contains convenience functions for plotting Switzerland maps distributed free of charge by the Swiss Federal Office of Statistics (SFSO). It uses the package \code{'rgdal'} for reading and plotting ESRI (Environmental Systems Research Institute) shapefiles.}
+This package contains convenience functions for plotting Switzerland maps distributed free of charge by the Swiss Federal Office of Statistics (SFSO). It uses the package \code{'sf'} for reading and plotting ESRI (Environmental Systems Research Institute) shapefiles.}
 \details{
 The generation of spatial images with maps normally requires several steps, which makes the handling for occasional users complex and confusing. Functions on a higher level of abstraction simplify the daily work. The purpose is to allow the user to get to the desired map as quickly and easily as possible.\cr
-The idea behind the functions is to load the specific map, assign the desired color to the regions and create the plot. The arguments are kept  straightforward, what is needed is a vector with the ids of the regions and an equally sized vector for the colors.
-The maps can be loaded and plotted independently of each other as single maps. \cr There are specific functions for the most important spatial divisions in Switzerland.
+The idea behind the functions is to load the specific map, assign the desired color to the regions and create the plot. The arguments are kept  straightforward, what is needed is a vector with the specific ids of the regions and an equally sized vector for the colors.
+\cr There are specific functions for the most important spatial divisions in Switzerland.
 Cantons can be plotted with \code{\link{PlotKant}()}, political municipalities with  \code{\link{PlotPolg}()}, large regions with  \code{\link{PlotGreg}()} and districts with  \code{\link{PlotBezk}()}.
-Lakes and rivers in multiple categories can be added to existing images with  \code{\link{AddLakes}()} or  \code{\link{AddRivers}()}.
+Lakes and rivers in multiple categories can be added to existing images with  \code{\link{AddLakes}()},   \code{\link{AddRivers}()} or \code{\link{AddWaters}()}.
 
 Before the maps can be drawn, a few preparations must be made:
 \itemize{
 \item download the maps following the link 'Swiss Federal Office of Statistics - Base maps' (below) and unzip them into a folder
 
 \item{declare the location as \code{options(bfsMaps.base = "//path_to_my_maps/")} }
-\item{names and shortnames of the maps are stored in a file named \code{'maps.csv'}, which can be stored either in the \code{'bfsMaps.base'} folder or alternatively in the packages installation folder. \cr An example file for the last map edition ('ThemaKart map boundaries - Set 2022') is included in the package and can be found in the packages \code{.../extdata} folder. If you are using a different edition, you have to adjust the file accordingly. }
+\item{names and shortnames of the maps are stored in a file named \code{'maps.csv'}, which can be stored either in the \code{'bfsMaps.base'} folder or alternatively in the packages installation folder. \cr An example file for the last map edition ('ThemaKart map boundaries - Set 2023') is included in the package and can be found in the packages \code{.../extdata} folder. If you are using a different edition, you have to adjust the file accordingly. }
 
 }}
-
-\note{Loading the maps for the first time will display a warning "1: In OGRSpatialRef(" concerning a "Discarded datum CH1903 ...". This does NOT impact the use of the maps. The warnings can however only be suppressed by setting an option tag in R's \code{.Rprofile} file:
-
-\code{options(rgdal_show_exportToProj4_warnings="none")}
-
-(See also https://cran.r-project.org/web/packages/rgdal/vignettes/PROJ6_GDAL3.html)
-}
 
 \author{Andri Signorell <andri@signorell.net>
 }
@@ -47,7 +40,8 @@ Swiss Premium Regions: \url{https://www.priminfo.admin.ch/}
 
 \examples{
 # Note:
-#   The examples can not be run without having the map data installed before!
+#   The examples can not be run without the map data being installed before!
+
 try( {
 
 # PlotKant simply tasks for the id and the color of the spatial region
@@ -84,6 +78,7 @@ AddRivers()
 # Cantonal capitals
 points(sf::st_coordinates(GetMap("stkt.pnt")$geometry),
        pch=21, col="grey", bg="red")
+
 
 
 # Display vegetational area

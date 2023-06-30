@@ -11,5 +11,5 @@ importFrom("graphics", "layout", "legend", "locator", "par", "plot", "text",
 importFrom("utils", "packageVersion", "globalVariables","read.csv", "tail", "download.file", "unzip", "View")
 importFrom("DescTools", "Coalesce", "BlankIfNA", "Recycle", "Mar", "Pal", "SetNames", "InDots", "ColToOpaque", "SetAlpha", "Year", "Today", "%nin%")
 
-importFrom("sf", "st_crs", "st_as_sf", "st_read")
+importFrom("sf", "st_crs", "st_as_sf", "st_read", "st_transform")
 importFrom("stats", "aggregate")
