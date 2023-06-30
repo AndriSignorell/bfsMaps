@@ -8,8 +8,8 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-PlotCH(col = "grey90", pbg = "white", main = "", col.vf = NA,
-       border = "grey", border.vf = "grey", lwd = 1,
+PlotCH(col = NA, main = "", col.vf = NA,
+       border = "grey", border.vf = NA, lwd = 1,
        tmtxt = TRUE, add = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -17,9 +17,6 @@ PlotCH(col = "grey90", pbg = "white", main = "", col.vf = NA,
 
   \item{col}{vector of colors, defining the colors of the cantons.\cr
     Note: \code{NA}s are recoded as white.
-}
-  \item{pbg}{color of the plot background.
-%%     ~~Describe \code{add.lakes} here~~
 }
   \item{main}{main title in the plot.
 %%     ~~Describe \code{main} here~~

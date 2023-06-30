@@ -9,13 +9,15 @@
 }
 \usage{
 GetMap(name_x, basedir = getOption("bfsMaps.base",
-       default = file.path(find.package("bfsMaps"), "extdata")))
+       default = file.path(find.package("bfsMaps"), "extdata")),
+       crs = 2056)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{name_x}{the name of a map, currently supported are \code{"kant.map"}, \code{"bezk.map"}, \code{"polg.map"}, \code{"greg.map"}, \code{"ch.map"} or any number referring to a row in the 'maps.csv' file.}
 
   \item{basedir}{the root directory for the maps to reside. bfsMaps by default looks for the mapfiles in its install location in the extdata directory. The \code{basedir} can be set as an option too.}
+  \item{crs}{Coordinate reference system (default 2056) for the map, if not set to \code{NA} the map will be transformed to this crs.}
 }
 \details{Loading the cards no longer causes performance problems and can thus be performed directly.
 %%  ~~ If necessary, more details than the description above ~~

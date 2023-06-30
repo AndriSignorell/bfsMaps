@@ -31,7 +31,7 @@ Swiss Federal Office of Statistics - Base maps: \url{https://www.bfs.admin.ch/bf
 
 Swiss Federal Office of Statistics - Spatial divisions: \url{https://www.agvchapp.bfs.admin.ch/de/typologies/query}
 
-Official directory of towns and cities (PLZ): \url{https://www.cadastre.ch/de/services/service/registry/plz.html}
+Official directory of towns and cities (PLZ): \url{https://www.swisstopo.admin.ch/de/geodata/amtliche-verzeichnisse/ortschaftenverzeichnis.html}
 
 Swiss Premium Regions: \url{https://www.priminfo.admin.ch/}
 }

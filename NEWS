@@ -7,6 +7,8 @@ bfsMaps 2.0.0 (2023-04-30)
 UPDATED FUNCTIONS:
   * All functions have been rewritten to use recommended sf package instead of
     rgdal, rgeos and maptools.
+  * Updated to current maps version "Kartengeometrien ThemaKart - Set 2023"
+  * d.bfsrg has "Gemeindestand 1.1.2023"
 
 DEPRECATED:
   * RemoveHoles() seems not to be needed anymore with the package

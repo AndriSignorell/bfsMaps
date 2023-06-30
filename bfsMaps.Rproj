@@ -17,6 +17,5 @@ StripTrailingWhitespace: Yes
 
 BuildType: Package
 PackageUseDevtools: Yes
-PackagePath: P:\My Documents\R-Library\bfsMaps
 PackageInstallArgs: --no-multiarch --with-keep.source
 PackageCheckArgs: --as-cran

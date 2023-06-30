@@ -12,7 +12,7 @@
   invisible()
 }
 
-# perpare map cache environment
+# prepare map cache environment
 tkart <- new.env()
 
 # store default values
