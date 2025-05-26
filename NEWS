@@ -1,7 +1,13 @@
 
 
+bfsMaps 1.99.4 (2025-05-28)
+-----------------------------
 
-bfsMaps 2.0.0 (2023-04-30)
+NEW FUNCTIONS:
+  * GeoCode() yields coordinates for an address using the GeoAdmin API
+
+
+bfsMaps 1.99.3 (2023-04-30)
 -----------------------------
 
 UPDATED FUNCTIONS:

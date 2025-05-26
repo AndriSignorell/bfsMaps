@@ -2,7 +2,7 @@
 export("AddLakes", "AddRivers", "AddWaters","BfSStamp",  "CombinePolg", "CombineKant",
        "CombinePolygons", "Neighbours", "PlotBezk","PlotCH","PlotGreg", "PlotPremReg",
        "PlotKant", "PlotBezk", "PlotMSRe","PlotMapDot","PlotPolg",
-       "SwissLocator", "GetMap", "tkart","DownloadBfSMaps")
+       "SwissLocator", "GetMap", "tkart","DownloadBfSMaps", "GeoCode")
 
 
 importFrom("grDevices", "xy.coords")
@@ -13,3 +13,4 @@ importFrom("DescTools", "Coalesce", "BlankIfNA", "Recycle", "Mar", "Pal", "SetNa
 
 importFrom("sf", "st_crs", "st_as_sf", "st_read", "st_transform")
 importFrom("stats", "aggregate")
+importFrom("httr", "GET", "content")

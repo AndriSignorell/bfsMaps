@@ -29,7 +29,7 @@ CombinePolg(id, g, map = GetMap("polg.map"))
 \author{Juerg Guggenbuehl, Andri Signorell <andri@signorell.net>
 %%  ~~who you are~~
 }
-\seealso{\code{\link{st_union}}
+\seealso{\code{\link[sf]{st_union}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
