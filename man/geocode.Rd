@@ -1,7 +1,7 @@
 \name{GeoCode}
 \alias{GeoCode}
 \title{
-Get the Coordinates For a Given Address Provided by GeoAdmin API
+Get the Coordinates For a Given Address
 }
 \description{Get the coordinates for a given address in Switzerland. The function just
 prepares the url needed to feed the GeoAdmin API.

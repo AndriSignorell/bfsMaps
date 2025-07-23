@@ -25,10 +25,12 @@
   out <- httr::content(httr::GET(url))
 
   if(length(out$results) == 0)
-    res <- data.frame(detail=adr, lat=NA_real_, lon=NA_real_, x=NA_real_, y=NA_real_)
+    res <- data.frame(detail=adr, lat=NA_real_, lon=NA_real_, y=NA_real_, x=NA_real_)
   else
-    res <- as.data.frame(out$results[[1]]$attrs[ c("detail","lat","lon","x","y") ] )
+    res <- as.data.frame(out$results[[1]]$attrs[ c("detail","lat","lon","y","x") ] )
 
+  # swap x and y as they have not the same meaning as needed in the plots
+  colnames(res)[4:5] <- c("x", "y")
 
   attr(res, "full") <- out
   return(res)

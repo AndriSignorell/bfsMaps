@@ -2,7 +2,7 @@ Package: bfsMaps
 Type: Package
 Title: Plot Maps from Switzerland by Swiss Federal Statistical Office
 Version: 1.99.4
-Date: 2025-05-26
+Date: 2025-07-23
 Authors@R: c(
   person("Andri", "Signorell", email = "andri@signorell.net", role = c("aut", "cre")),
   person("Juerg", "Guggenbuehl", role = c("ctb")))
